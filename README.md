@@ -1,1 +1,1 @@
-# specs
+# Lucid chain wizard specifications
