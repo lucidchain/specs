@@ -43,9 +43,15 @@ We can represent faceted service chains as a directed graph, where the edges alw
 In type state service chains issue management is more complex but it is more efficent to detect who is not passing SLAs. In type state when an issue is created it has an state, which is related to just one service. In case this service needs to pass the responsability to another, it does it using the same issue, but changing its state. TTO is calculated as the sum of time the issue is not assigned to an user or a team. In case ownership-type is state, TTO is the sum of the times between the issue changes to a new state until is assigned to a person. In case ownership-type is state+team, it is calculated as the sum of the times between the issue is assigned to a new team until is assigned to a person.
 In type state service chains we must define initial and terminal services, because we can represent this chains as bidirectional graphs. At this point, the only way to determine where we can start or end the process is defining this flow. Here the edges means a issue changing its state. We also need to define an initial SLA, because issue creation is a special moment that just can be done once.
 
-### SLA Objects
+## Context
 
-Each SLA defined in **sla** section must contain the following atributes:
+## Organization Objects
+
+Each Organization defined in **orgs** section must contain the following atributes and schema.
+
+## SLA Objects
+
+Each SLA defined in **sla** section must contain the following atributes and schema.
 
 ### SLA Object  
 
