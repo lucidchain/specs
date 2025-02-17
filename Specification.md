@@ -53,6 +53,8 @@ In type state service chains we must define initial and terminal services, becau
 
 ---
 
+**NOTE:** It is not allowed to include the prefix ***"_DEPRECATED_"*** in any name or value for any property.
+
 ### Yaml structure example
 
 ```yaml
