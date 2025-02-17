@@ -53,6 +53,14 @@ In type state service chains we must define initial and terminal services, becau
 
 ---
 
+### Yaml structure example
+
+```yaml
+context:  Context
+orgs:  Organization[]
+sla: SLA[]
+```
+
 ## Context
 
 This section of the yaml defines the service chain configuration. It is essential in order to understand how the chain works and some extra information.
@@ -69,6 +77,16 @@ This section of the yaml defines the service chain configuration. It is essentia
 
 ---
 
+#### Context example
+
+```yaml
+  id: 1
+  version: 1
+  config: Configuration
+  chain-name: "Plane pieces quality assurance service chain"
+  description: "This service chain contains all the services required to ensurance quality in plane pieces."
+```
+
 ### `Configuration`  
 
 | Field name         | Field type                              | Required/Optional | Description  |
@@ -80,6 +98,22 @@ This section of the yaml defines the service chain configuration. It is essentia
 | initial-sla      | `String`                            | **Optional**      | It is the **name** of the initial SLA assigned to the service chain. It will be the SLA taken into account when a new issue is created and it has not changed its state. It is not optional if chain type is state. |
 
 ---
+
+#### Configuration type state example
+
+```yaml
+  service-chain-type: "state" 
+  initial: ServiceStateObject[]
+  terminal: ServiceStateObject[]
+  ownership-type: "state+team"
+  initial-sla: "REVIEW_SHIP_SLA"
+```
+
+##### Configuration type faceted example
+
+```yaml
+  service-chain-type: faceted
+```
 
 ### `ServiceChainType`
 
@@ -98,6 +132,17 @@ This section of the yaml defines the service chain configuration. It is essentia
 | states     | `String[]`        | **Required**      | List of states associated with the service. This states will be terminal or initial, and that means they have a special meaning because they start or end the flow. |
 
 ---
+
+#### ServiceStateObject example
+
+```yaml
+  service: "Review ship"
+     states:
+       - "STUDYING"
+       - "DRAFT"
+```
+
+This means that the service with the name "Review ship" has 2 terminal or initial states (depending on where this ServiceStateObject is). Theese states are "STUDYING" and "DRAFT".
 
 ### `OwnershipType`
 
@@ -126,6 +171,15 @@ Each Organization defined in **orgs** section must contain the following atribut
 
 ---
 
+#### Organization example
+
+```yaml
+code: "AQC"
+name: "Aerospace Quality Corp"
+teams: Team[]
+services: Service[]
+```
+
 ### `Team`  
 
 It is necessary that we include x-redmine-profile property when importing a chain in Redmine, and x-itop-profiles when importing a chain in ITop.
@@ -138,6 +192,15 @@ It is necessary that we include x-redmine-profile property when importing a chai
 | members     | [`Member[]`](#member) | **Required**       | List of all the team members. |
 
 ---
+
+### Team example
+
+```yaml
+name: "Inspection Team"
+x-redmine-profile: FunctionalUser
+x-itop-profiles: ITopProfile[]
+members: Member[]
+```
 
 ### `RedmineProfile`  
 
@@ -177,6 +240,17 @@ Here we leave the ITop official documentation chart about profiles
 
 ---
 
+#### ITopProfile[] example
+
+```yaml
+  x-itop-profiles:
+      - x-itop-profile: Configuration Manager
+      - x-itop-profile: Service Desk Agent
+      - x-itop-profile: Support Agent
+      - x-itop-profile: Problem Manager
+      - x-itop-profile: Service Manager
+```
+
 ### `Member`  
 
 | Field name  | Field type                        | Required/Optional  | Description  |  
@@ -191,6 +265,18 @@ Here we leave the ITop official documentation chart about profiles
 
 ---
 
+#### Member example
+
+```yaml
+name: "John Doe"
+user: "jdoe"
+email: "jdoe@example.com"
+roles: Role[]
+x-itop-default-password: "SecureP@ss1!"
+x-itop-external: false
+x-itop-profiles: ITopProfile[]
+```
+
 ### `Role`  
 
 | Field name  | Field type  | Required/Optional  | Description  |  
@@ -198,6 +284,12 @@ Here we leave the ITop official documentation chart about profiles
 | name        | `String`    | **Required**       | Role name (e.g., "Developer, Student, Manager, etc"). |  
 
 ---
+
+#### Role example
+
+```yaml
+name: "Inspector"
+```
 
 ### `Service`  
 
@@ -213,6 +305,18 @@ Here we leave the ITop official documentation chart about profiles
 
 ---
 
+#### Service example
+
+```yaml
+name: "Quality Control"
+description: "Ensures all parts meet safety and performance standards."
+x-redmine-state: "In Progress"
+x-redmine-tickets-types: TicketTypeEnum[]
+teams: TeamObject[]
+providers: ProviderObject[]
+customers: CustomerObject[]
+```
+
 ### `TeamObject`
 
 | Field name  | Field type  | Required/Optional  | Description  |  
@@ -220,6 +324,14 @@ Here we leave the ITop official documentation chart about profiles
 | name        | `String`    | **Required**       | It is the **name** of the organization team that manages this service. |  
 
 ---
+
+#### TeamObject example
+
+**NOTE:** Remember you have to reference an existing team. We assuming here that "Inspection Team" is defined in the organization that has this service.
+
+```yaml
+name: "Inspection Team"
+```
 
 ### `ProviderObject`  
 
@@ -233,6 +345,14 @@ This object represents the organization, service and SLA needed to provide a ser
 
 ---
 
+#### ProviderObject example
+
+```yaml
+name: "Aerospace Quality Corp Provider"
+service: "Material Inspection Helper"
+sla: "Aerospace Quality Corp Provider SLA"
+```
+
 ### `CustomerObject`  
 
 This object represents the organization, and SLA that are clients from this service.
@@ -244,6 +364,13 @@ This object represents the organization, and SLA that are clients from this serv
 
 ---
 
+#### CustomerObject example
+
+```yaml
+name: "Aerospace Quality Corp Client"
+sla: "Aerospace Quality Corp SLA"
+```
+
 ### `TicketTypeEnum`  
 
 Defines the possible values for Redmine ticket types. This is a conceptual type, which means there are no incorrect values. Do not forget that there is only one state allowed per service.
@@ -253,6 +380,15 @@ Defines the possible values for Redmine ticket types. This is a conceptual type,
 | `Your ticket type 1`  | First ticket type of your service chain. |  
 | `Your ticket type 2`  | Second ticket type of your service chain. |  
 | `Your ticket type 3`          | Third ticket type of your service chain. |  
+
+#### TicketTypeEnum example
+
+Imagine that you are configuring a service chain for quality assurance in plance pieces. You could define different ticket types depending on the plane. Let's see an example:
+
+| Value  | Description  |  
+|----------------------------- |------------------------------------ |  
+| `Defense Plane`  | Theese tickets must be resolved quickly. |  
+| `Comercial Plane`  | Theese tickets are important but they have less priority than defense ones. |
 
 ## SLA Objects
 
@@ -267,6 +403,13 @@ Each SLA defined in **sla** section must contain the following atributes and sch
 
 ---
 
+#### SLA example
+
+```yaml
+name: "Aerospace Quality Corp SLA"
+guarantees: GuaranteesObject[]
+```
+
 ### `GuaranteesObject`  
 
 | Field name  | Field type                         | Required/Optional  | Description  |  
@@ -275,6 +418,13 @@ Each SLA defined in **sla** section must contain the following atributes and sch
 | objectives  | [`ObjectivesObject`](#objectivesobject) | **Required**       | Specifies the objectives, including time-to-ownership (TTO) and time-to-resolution (TTR). |  
 
 ---
+
+#### GuaranteesObject example
+
+```yaml
+scope: ScopeObject
+objectives: ObjectivesObject
+```
 
 ### `ScopeObject`  
 
@@ -287,6 +437,14 @@ In scope we must define some specific tool configuration. When preparing the yam
 | x-itop-request-type  | [`ITopRequestType`](#itoprequesttype)    | Optional       | Type of request in ITop associated with the SLA guarantee. |
 
 ---
+
+#### ScopeObject example
+
+```yaml
+x-redmine-tickets-type: Defense Plane
+x-itop-priority: '*'
+x-itop-request-type: 'incident' 
+```
 
 ### `ITopPriority`  
 
@@ -319,12 +477,27 @@ Defines the possible values for ITop requests types.
 
 ---
 
+#### ObjectivesObject example
+
+```yaml
+tto: TimeConstraintObject
+ttr: TimeConstraintObject
+```
+
 ### `TimeConstraintObject`  
 
 | Field name  | Field type  | Required/Optional  | Description  |  
 |------------ |----------- |------------------- |------------- |  
 | max.value  | `Integer`   | **Required**       | Maximum time allowed for the SLA objective. Must be greater than 0. |  
 | max.unit   | [`TimeUnitEnum`](#timeunitenum)    | **Required**       | Unit of time measurement. |  
+
+#### TimeConstraintObject example
+
+```yaml
+  max:
+      value: 90
+      unit: hours
+```
 
 ### `TimeUnitEnum`  
 
