@@ -32,13 +32,13 @@ A **service chain model** description is a [YAML](http://yaml.org/spec) document
 
 ![Class diagram](classDiagram.png "service chain model class diagram")
 
-## Type faceted
+## Type faceted chains
 
 In service chains with type faceted we have a simplified incident management. In this type of service chains the customer created an issue for its provier. The issue is assigned to a team and later to a person. When this happens, TTO is calculated as the time between its creation and its asignation. Once TTO is calculated, we start to count TTR until the issue has been resolve. Although the issues have states, they are always associated with the same service. If during the issue management the provider organization has to pass the resposability to one of its providers, a new issue between them must be created. In these cases we can close or pause the original issue. This way of managing issues makes a bit difficult tracking whether the first provider or any of its providers are fullfiling the SLAs. However, it is simpler and easier to understand. Faceted chains usually are usefull when there are no third party services interacting with the client.
 
 We can represent faceted service chains as a directed graph, where the edges always represent a new issue creation.
 
-## Type state
+## Type state chains
 
 In type state service chains issue management is more complex but it is more efficent to detect who is not passing SLAs. In type state when an issue is created it has an state, which is related to just one service. In case this service needs to pass the responsability to another, it does it using the same issue, but changing its state. TTO is calculated as the sum of time the issue is not assigned to an user or a team. In case ownership-type is state, TTO is the sum of the times between the issue changes to a new state until is assigned to a person. In case ownership-type is state+team, it is calculated as the sum of the times between the issue is assigned to a new team until is assigned to a person.
 In type state service chains we must define initial and terminal services, because we can represent this chains as bidirectional graphs. At this point, the only way to determine where we can start or end the process is defining this flow. Here the edges means a issue changing its state. We also need to define an initial SLA, because issue creation is a special moment that just can be done once.
@@ -507,3 +507,28 @@ Defines the possible values for time units.
 |-------- |------------- |  
 | `days`   | Represents days as a unit of time. |  
 | `hours`  | Represents hours as a unit of time. |
+
+## Service chain examples
+
+In this section we provide some examples for a better understanding and an overall view of the service chain modeling language.
+
+### Type faceted
+
++ A simplified and synthetic example based on ***University***, in [YAML](./yamlSample/professorsStudents.yaml) format, compliant with the current Service chain specification version.
+
++ A simplified and synthetic example based on ***University*** including third party services, in [YAML](./yamlSample/professorsStudentsModded.yaml) format, compliant with the current Service chain specification version.
+
++ An example based on ***Junta de Andalucía digital agency*** including two versions. The [first one](./yamlSample/TabulaService.yaml) is a simpler version than the [second one](./yamlSample/TabulaServiceModded.yaml). Both are compliant with the current Service chain specification version.
+
+### Type state
+
++ A simplified and synthetic example based on ***Junta de Andalucía***, in [YAML](./yamlSample/JDA_simplified.yaml) format, compliant with the current Service chain specification version.
+
++ Two more versions of the same chain in order to explore versioning and differences in a simplified version of ***Junta de Andalucía***. The [first one](./yamlSample/JDA_simplifiedModded3.yaml) adds a new service and the [second one](./yamlSample/JDA_simplifiedModded4.yaml) adds SLA multiplexion.
+
++ A complex example based on ***Junta de Andalucía***, in [YAML](./yamlSample/JDA_multiplexed_restructured.yaml) format, compliant with the current Service chain specification version.
+
+## References
+
+1. [JSON](http://www.json.org)
+2. [YAML](http://yaml.org/spec)
