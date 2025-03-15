@@ -20,11 +20,11 @@ In this SLA we can specify TTO and TTR values. Once we have this structure, we c
 
 Before we start introducing the yaml structure and all the possible options that it provides, we are going to describe some concepts:
 
-+ Incident/request/issue: It is a need reported by a customer. It must be handled by an organization following its repective SLA rules. For us every term such as incident, service request, user request and so on will be treated and refered as ***"issue"***
++ <u>***Incident/request/issue:***</u> It is a need reported by a customer. It must be handled by an organization following its repective SLA rules. For us every term such as incident, service request, user request and so on will be treated and refered as ***"issue"***.
 
-+ TTO: It means Time To Ownership. It is the time it takes for a team or individual to be ***assigned*** to an issue after it has been created or its state changed.
++ <u>***TTO:***</u> It means Time To Ownership. It is the time it takes for a team or individual to be ***assigned*** to an issue after it has been created or its state changed.
 
-+ TTR: It means Time To Resolve. It is the time it takes for an issue to be ***closed*** since it has been assigned to someone or a team.
++ <u>***TTR:***</u> It means Time To Resolve. It is the time it takes for an issue to be ***closed*** since it has been assigned to someone or a team.
 
 ## Specification
 
@@ -34,13 +34,13 @@ A **service chain model** description is a [YAML](http://yaml.org/spec) document
 
 ## Type faceted chains
 
-In service chains with type faceted we have a simplified incident management. In this type of service chains the customer created an issue for its provier. The issue is assigned to a team and later to a person. When this happens, TTO is calculated as the time between its creation and its asignation. Once TTO is calculated, we start to count TTR until the issue has been resolve. Although the issues have states, they are always associated with the same service. If during the issue management the provider organization has to pass the resposability to one of its providers, a new issue between them must be created. In these cases we can close or pause the original issue. This way of managing issues makes a bit difficult tracking whether the first provider or any of its providers are fullfiling the SLAs. However, it is simpler and easier to understand. Faceted chains usually are usefull when there are no third party services interacting with the client.
+In service chains with type *faceted* we have a simplified incident management. In this type of service chains the customer created an issue for its provier. The issue is assigned to a team and later to a person. When this happens, TTO is calculated as the time between its creation and its asignation. Once TTO is calculated, we start to count TTR until the issue has been resolved. Although the issues have states, they are always associated with the same service. If during the issue management the provider organization has to pass the resposability to one of its providers, a new issue between them must be created. In these cases we can close or pause the original issue. This way of managing issues makes a bit difficult tracking whether the first provider or any of its providers are fullfiling the SLAs or not. However, it is simpler and easier to understand. Faceted chains usually are usefull when there are no third party services interacting with the client.
 
 We can represent faceted service chains as a directed graph, where the edges always represent a new issue creation.
 
 ## Type state chains
 
-In type state service chains issue management is more complex but it is more efficent to detect who is not passing SLAs. In type state when an issue is created it has an state, which is related to just one service. In case this service needs to pass the responsability to another, it does it using the same issue, but changing its state. TTO is calculated as the sum of time the issue is not assigned to an user or a team. In case ownership-type is state, TTO is the sum of the times between the issue changes to a new state until is assigned to a person. In case ownership-type is state+team, it is calculated as the sum of the times between the issue is assigned to a new team until is assigned to a person.
+In type *state* service chains issue management is more complex but it is more efficent to detect who is not passing SLAs. In type state, when an issue is created, it has an state, which is related to just one service. In case this service needs to pass the responsability to another, it does it using the same issue, but changing its state. TTO is calculated as the sum of time the issue is not assigned to an user or a team. In case ownership-type is state, TTO is the sum of the times between the issue changes to a new state until is assigned to a person. In case ownership-type is state+team, it is calculated as the sum of the times between the issue is assigned to a new team until is assigned to a person.
 In type state service chains we must define initial and terminal services, because we can represent this chains as bidirectional graphs. At this point, the only way to determine where we can start or end the process is defining this flow. Here the edges means a issue changing its state. We also need to define an initial SLA, because issue creation is a special moment that just can be done once.
 
 ## Yaml structure  
@@ -220,7 +220,7 @@ Defines the possible Redmine profiles for the users in the team. This profiles a
 ### `ITopProfile`
 
 This values are the currently available on ITop defaultly. You can have some additional information in the following [link](https://www.itophub.io/wiki/page?id=3_2_0:customization:profiles)
-Here we leave the ITop official documentation chart about profiles
+Here we leave the ITop official documentation chart about profiles.
 
 **NOTE**: This privileges are inherited to all team members.
 
@@ -509,6 +509,7 @@ Defines the possible values for time units.
 |-------- |------------- |  
 | `days`   | Represents days as a unit of time. |  
 | `hours`  | Represents hours as a unit of time. |
+| `minutes`  | Represents minutes as a unit of time. |
 
 ## Service chain examples
 
