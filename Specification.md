@@ -30,7 +30,18 @@ Before we start introducing the yaml structure and all the possible options that
 
 A **service chain model** description is a [YAML](http://yaml.org/spec) document with following structure. Note that primitive data types in the service chain model specification are based on the types supported by the [JSON-Schema Draft 4](http://json-schema.org/latest/json-schema-core.html#anchor8).
 
-![Class diagram](classDiagram.png "service chain model class diagram")
+![SCModel UML representation](/img/LCWSpec-ServiceChainModel.png)  
+<p align="center">
+  <strong>Figure 1:</strong> <em>SCModel UML Representation.</em>
+</p>
+
+As you can see in Figure 1, SCModel specifications is complex. The UML has different colors to make it easier to understand each part:
+
++ <u>***Grey:***</u> This color is used to represent the whole service chain.
++ <u>***Purple:***</u> This color is used to represent all ***Enums*** in SCModel notation.
++ <u>***Blue:***</u> This color is used to represent all the parts related with SCModel ***service chain configuration***.
++ <u>***Light orange:***</u> This color is used to represent all the parts related with ***organizations***, including teams, services and people.
++ <u>***Pink:***</u> This color is used to represent all the parts related with ***SLAs*** and objectives.
 
 ## Type faceted chains
 
@@ -38,10 +49,21 @@ In service chains with type *faceted* we have a simplified incident management. 
 
 We can represent faceted service chains as a directed graph, where the edges always represent a new issue creation.
 
+![Type state chain representation](/img/facetedChainExample.png)  
+<p align="center">
+  <strong>Figure 2:</strong> <em>Graph representation of a service chain type faceted chain.</em>
+</p>
+
 ## Type state chains
 
 In type *state* service chains issue management is more complex but it is more efficent to detect who is not passing SLAs. In type state, when an issue is created, it has an state, which is related to just one service. In case this service needs to pass the responsability to another, it does it using the same issue, but changing its state. TTO is calculated as the sum of time the issue is not assigned to an user or a team. In case ownership-type is state, TTO is the sum of the times between the issue changes to a new state until is assigned to a person. In case ownership-type is state+team, it is calculated as the sum of the times between the issue is assigned to a new team until is assigned to a person.
 In type state service chains we must define initial and terminal services, because we can represent this chains as bidirectional graphs. At this point, the only way to determine where we can start or end the process is defining this flow. Here the edges means a issue changing its state. We also need to define an initial SLA, because issue creation is a special moment that just can be done once.
+
+![Type state chain representation](/img/stateChainExample.png)
+<p align="center">
+  <strong>Figure 3:</strong> <em>Graph representation of a service chain type state chain.</em>
+</p>
+
 
 ## Yaml structure  
 
