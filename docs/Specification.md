@@ -69,9 +69,9 @@ In type state service chains we must define initial and terminal services, becau
 
 | Field name    | Field type                          | Required/Optional | Description  |
 |--------------|-----------------------------------|-------------------|-------------|
-| context           | [`Context`](#context)                         | **Required**      | Service chain context and general configuration  |
-| orgs      | [`Organization`](#organization)                         | **Required**      | List of all organizations including its services and teams  |
-| sla       | [`SLA`](#sla)   | **Required**      | List of all SLAs involved in the service chain and its guarantees. |
+| context           | [Context](#context)                         | **Required**      | Service chain context and general configuration  |
+| orgs      | [Organization](#organization)                         | **Required**      | List of all organizations including its services and teams  |
+| sla       | [SLA](#sla)   | **Required**      | List of all SLAs involved in the service chain and its guarantees. |
 
 ---
 
@@ -95,7 +95,7 @@ This section of the yaml defines the service chain configuration. It is essentia
 |--------------|-----------------------------------|-------------------|-------------|
 | id           | `Number`                         | **Required**      | Unique identifier for the service chain. |
 | version      | `Number`                         | **Required**      | Version number of the context. |
-| config       | [`Configuration`](#configuration)   | **Required**      | Configuration details of the service chain. |
+| config       | [Configuration](#configuration)   | **Required**      | Configuration details of the service chain. |
 | chain-name   | `String`                          | Optional      | Name of the service chain. It is highly recommended to include that property. |
 | description  | `String`                          | Optional      | Description of the service chain. |
 
@@ -115,10 +115,10 @@ This section of the yaml defines the service chain configuration. It is essentia
 
 | Field name         | Field type                              | Required/Optional | Description  |
 |-------------------|--------------------------------------|-------------------|-------------|
-| service-chain-type | [`ServiceChainType`](#servicechaintype)                            | **Required**      | Type of service chain. |
-| initial           | [`ServiceStateObject[]`](#servicestateobject) | Optional      | List of initial services and their states. It is not optional if chain type is state. |
-| terminal          | [`ServiceStateObject[]`](#servicestateobject) | Optional      | List of terminal services and their states. It is not optional if chain type is state. |
-| ownership-type    | [`OwnershipType`](#ownershiptype)                            | Optional      | Defines the ownership type. By default its value is 'state' It is not optional if chain type is state. |
+| service-chain-type | [ServiceChainType](#servicechaintype)                            | **Required**      | Type of service chain. |
+| initial           | [ServiceStateObject[]](#servicestateobject) | Optional      | List of initial services and their states. It is not optional if chain type is state. |
+| terminal          | [ServiceStateObject[]](#servicestateobject) | Optional      | List of terminal services and their states. It is not optional if chain type is state. |
+| ownership-type    | [OwnershipType](#ownershiptype)                            | Optional      | Defines the ownership type. By default its value is 'state' It is not optional if chain type is state. |
 | initial-sla      | `String`                            | Optional      | It is the **name** of the initial SLA assigned to the service chain. It will be the SLA taken into account when a new issue is created and it has not changed its state. It is not optional if chain type is state. |
 
 ---
@@ -190,8 +190,8 @@ Each Organization defined in **orgs** section must contain the following atribut
 |------------ |---------------------------------|------------------- |------------- |  
 | code        | `String`                         | **Required**       | Unique identifier for the organization. |  
 | name        | `String`                         | **Required**       | Name of the  organization. It must be unique. |  
-| teams       | [`Team[]`](#team)    | Optional       | List of all the teams of the organization involved in the chain. The organization must have teams in order to have services and be a client or a provider. |  
-| services    | [`Service[]`](#service) | Optional       | List of services offered by the organization. The organization must have teams for its services. Moreover, services are required in order to be a provider. |  
+| teams       | [Team[]](#team)    | Optional       | List of all the teams of the organization involved in the chain. The organization must have teams in order to have services and be a client or a provider. |  
+| services    | [Service[]](#service) | Optional       | List of services offered by the organization. The organization must have teams for its services. Moreover, services are required in order to be a provider. |  
 
 ---
 
@@ -211,9 +211,9 @@ It is necessary that we include x-redmine-profile property when importing a chai
 | Field name  | Field type                        | Required/Optional  | Description  |  
 |------------ |---------------------------------|------------------- |------------- |  
 | name        | `String`                         | **Required**       | Name of the team. |  
-| x-redmine-profile | [`RedmineProfile`](#redmineprofile)                     | Optional       | Redmine profile associated with the team. |  
-| x-itop-profiles     | [`ITopProfile[]`](#itopprofile) | Optional       | List of all ITop profiles associated with the team. |  
-| members     | [`Member[]`](#member) | **Required**       | List of all the team members. |
+| x-redmine-profile | [RedmineProfile](#redmineprofile)                     | Optional       | Redmine profile associated with the team. |  
+| x-itop-profiles     | [ITopProfile[]](#itopprofile) | Optional       | List of all ITop profiles associated with the team. |  
+| members     | [Member[]](#member) | **Required**       | List of all the team members. |
 
 ---
 
@@ -282,10 +282,10 @@ Here we leave the ITop official documentation chart about profiles.
 | name        | `String`                         | **Required**       | Name of the team member. It can (and should) include surnames. |  
 | user        | `String`                         | **Required**       | Username of the team member. It is the login name for the person. |  
 | email       | `String`                         | **Required**       | Email of the team member. |  
-| roles       | [`Role[]`](#role)   | Optional       | List of roles assigned to the member. |  
+| roles       | [Role[]](#role)   | Optional       | List of roles assigned to the member. |  
 | x-itop-default-password       | `String`   | Optional       | If the user is going to be imported on ITop and it is not going to be an externalUser, you can choose this account's password with this property. It must contains at least 8 characters, 1 number, 1 uppercase, 1 lowercase and 1 special character. If this property is not defined, by default the password will be **changeMe1@**. |  
 | x-itop-external       | `Boolean`   | Optional       | If the user is going to be imported on ITop, you can choose the account's type. If the property is ***true***, the user will be imported as an ExternalUser. In case the property is not defined or it is false, it will be imported as LocalUser. |  
-| x-itop-profiles     | [`ITopProfile[]`](#itopprofile) | Optional       | In addition to all ITop profiles associated with the team that the user inherits, you can add some private profiles to it using this property. |
+| x-itop-profiles     | [ITopProfile[]](#itopprofile) | Optional       | In addition to all ITop profiles associated with the team that the user inherits, you can add some private profiles to it using this property. |
 
 ---
 
@@ -322,10 +322,10 @@ name: "Inspector"
 | name        | `String`                         | **Required**       | Name of the service. It must be unique. |  
 | description | `String`                         | Optional       | Description of the service. |  
 | x-redmine-state | `String`                     | Optional       | Name of the state associated with the service. Remember that each service must have just only one state. It is necessary when importing a Redmine type state service chain. |  
-| x-redmine-tickets-types | [`TicketTypeEnum[]`](#tickettypeenum) | Optional | List of Redmine ticket types applicable to the service. It is necessary when importing a Redmine type state service chain. |  
-| teams       | [`TeamObject[]`](#teamobject)    | Optional       | List of teams responsible for the service. This teams must belong to the organization. |  
-| providers   | [`ProviderObject[]`](#providerobject) | Optional       | List of providers needed for the service. |  
-| customers   | [`CustomerObject[]`](#customerobject) | Optional       | List of customers for the service. |  
+| x-redmine-tickets-types | [TicketTypeEnum[]](#tickettypeenum) | Optional | List of Redmine ticket types applicable to the service. It is necessary when importing a Redmine type state service chain. |  
+| teams       | [TeamObject[]](#teamobject)    | Optional       | List of teams responsible for the service. This teams must belong to the organization. |  
+| providers   | [ProviderObject[]](#providerobject) | Optional       | List of providers needed for the service. |  
+| customers   | [CustomerObject[]](#customerobject) | Optional       | List of customers for the service. |  
 
 ---
 
@@ -423,7 +423,7 @@ Each SLA defined in **sla** section must contain the following atributes and sch
 | Field name  | Field type                        | Required/Optional  | Description  |  
 |------------ |-------------------------------- |------------------- |------------- |  
 | name        | `String`                         | **Required**       | Name of the SLA. |  
-| guarantees  | [`GuaranteesObject[]`](#guaranteesobject)  | **Required**       | List of guarantees defining the scope and objectives of the SLA. |  
+| guarantees  | [GuaranteesObject[]](#guaranteesobject)  | **Required**       | List of guarantees defining the scope and objectives of the SLA. |  
 
 ---
 
@@ -438,8 +438,8 @@ guarantees: GuaranteesObject[]
 
 | Field name  | Field type                         | Required/Optional  | Description  |  
 |------------ |-------------------------------- |------------------- |------------- |  
-| scope       | [`ScopeObject`](#scopeobject)       | **Required**       | Defines the scope of the guarantee, including the type of request depending on the tool where you want to import the chain. |  
-| objectives  | [`ObjectivesObject`](#objectivesobject) | **Required**       | Specifies the objectives, including time-to-ownership (TTO) and time-to-resolution (TTR). |  
+| scope       | [ScopeObject](#scopeobject)       | **Required**       | Defines the scope of the guarantee, including the type of request depending on the tool where you want to import the chain. |  
+| objectives  | [ObjectivesObject](#objectivesobject) | **Required**       | Specifies the objectives, including time-to-ownership (TTO) and time-to-resolution (TTR). |  
 
 ---
 
@@ -457,8 +457,8 @@ In scope we must define some specific tool configuration. When preparing the yam
 | Field name               | Field type  | Required/Optional  | Description  |  
 |------------------------- |----------- |------------------- |------------- |  
 | x-redmine-tickets-type  | `String`    | Optional       | Type of ticket in Redmine associated with the SLA guarantee. |  
-| x-itop-priority  | [`ITopPriority`](#itoppriority)    | Optional       | Type of priority in ITop associated with the SLA guarantee. |  
-| x-itop-request-type  | [`ITopRequestType`](#itoprequesttype)    | Optional       | Type of request in ITop associated with the SLA guarantee. |
+| x-itop-priority  | [ITopPriority](#itoppriority)    | Optional       | Type of priority in ITop associated with the SLA guarantee. |  
+| x-itop-request-type  | [ITopRequestType](#itoprequesttype)    | Optional       | Type of request in ITop associated with the SLA guarantee. |
 
 ---
 
@@ -496,8 +496,8 @@ Defines the possible values for ITop requests types.
 
 | Field name  | Field type                          | Required/Optional  | Description  |  
 |------------ |-------------------------------- |------------------- |------------- |  
-| tto        | [`TimeConstraintObject`](#timeconstraintobject) | **Required**       | Defines the maximum allowed time for time-to-ownership (TTO). |  
-| ttr        | [`TimeConstraintObject`](#timeconstraintobject) | **Required**       | Defines the maximum allowed time for time-to-resolution (TTR). |  
+| tto        | [TimeConstraintObject](#timeconstraintobject) | **Required**       | Defines the maximum allowed time for time-to-ownership (TTO). |  
+| ttr        | [TimeConstraintObject](#timeconstraintobject) | **Required**       | Defines the maximum allowed time for time-to-resolution (TTR). |  
 
 ---
 
@@ -513,7 +513,7 @@ ttr: TimeConstraintObject
 | Field name  | Field type  | Required/Optional  | Description  |  
 |------------ |----------- |------------------- |------------- |  
 | max.value  | `Integer`   | **Required**       | Maximum time allowed for the SLA objective. Must be greater than 0. |  
-| max.unit   | [`TimeUnitEnum`](#timeunitenum)    | **Required**       | Unit of time measurement. |  
+| max.unit   | [TimeUnitEnum](#timeunitenum)    | **Required**       | Unit of time measurement. |  
 
 #### TimeConstraintObject example
 
