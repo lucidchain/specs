@@ -1,22 +1,24 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Buscar el enlace específico por su href
-    const logButton = document.querySelector('a[href="javascript:void(0);"]');
-    
-    // Añadir un evento de clic para alternar el tema
-    if (logButton) {
-      logButton.addEventListener('click', function() {
-        // Obtener el atributo data-theme del body
-        const currentTheme = document.body.getAttribute('data-theme');
-        
-        // Alternar entre el tema claro y oscuro
-        if (currentTheme === 'dark') {
-          document.body.setAttribute('data-theme', 'light');  // Cambiar a claro
-          console.log("Tema cambiado a claro");
-        } else {
-          document.body.setAttribute('data-theme', 'dark');
-          console.log("Tema cambiado a oscuro");
-        }
-      });
-    }
-  });
-  
+  const logButton = document.querySelector('a[href="javascript:void(0);"]');
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) {
+      document.body.setAttribute('data-theme', savedTheme);
+  } else {
+      const currentTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.body.setAttribute('data-theme', currentTheme);
+  }
+
+  if (logButton) {
+    logButton.addEventListener('click', function() {
+      const currentTheme = document.body.getAttribute('data-theme');
+      
+      if (currentTheme === 'dark') {
+        document.body.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+      } else {
+        document.body.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+  }
+});
