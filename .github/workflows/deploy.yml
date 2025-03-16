@@ -42,7 +42,7 @@ jobs:
           # Add the remote again
           git remote add origin https://github.com/${{ github.repository }}.git
           
-          git checkout -b gh-pages
+          git checkout -B gh-pages
           git add .
           git commit -m "Deploy documentation"
           git push origin gh-pages --force
