@@ -23,7 +23,8 @@ extra:
 extra_css: 
   - 'css/custom.css'
 extra_javascript:
-  - 'js/custom.js' 
+  - 'js/themeListener.js' 
+  - js/scroll-to-top.js
 plugins:
   - git-revision-date-localized:
       enable_creation_date: true
