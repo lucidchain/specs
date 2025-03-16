@@ -158,3 +158,35 @@ body {
 [data-theme='dark'] .md-content {
   background-color: var(--background-dark) !important;
 }
+
+#scroll-to-top {
+  position: fixed;
+  text-align: center;
+  vertical-align: middle;
+  bottom: 30px;
+  right: 30px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 25px;
+  cursor: pointer;
+  display: none;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#scroll-to-top:hover {
+  background-color: #0056b3;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
+}
+
+#scroll-to-top:focus {
+  outline: none;
+  box-shadow: 0 0 5px 2px rgba(0, 123, 255, 0.7);
+}
+
