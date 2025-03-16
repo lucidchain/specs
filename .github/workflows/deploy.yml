@@ -26,32 +26,28 @@ jobs:
           pip install mkdocs
           pip install mkdocs-material
           pip install mkdocs-git-revision-date-localized-plugin
+          pip install requirements.txt
+          python commit_info.py
 
       - name: Build documentation
         run: |
           rm .gitignore
-          mkdocs build  # Esto generará los archivos estáticos en la carpeta `site`
+          mkdocs build
 
       - name: Deploy to GitHub Pages
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          # Remover el remoto origin si ya existe para evitar errores
           git remote remove origin || true
           
-          # Agregar el remoto de nuevo
           git remote add origin https://github.com/${{ github.repository }}.git
           
-          # Cambiar a la rama `gh-pages`
           git checkout -B gh-pages
           
-          # Copiar los archivos generados por `mkdocs build` en la carpeta `site/` a la raíz de la rama `gh-pages`
           cp -r site/* .
 
-          # Agregar y hacer commit de los archivos generados
           git add .
           git commit -m "Deploy documentation"
           
-          # Subir los cambios a la rama `gh-pages`
           git push origin gh-pages --force

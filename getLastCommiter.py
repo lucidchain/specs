@@ -5,11 +5,9 @@ import git
 repo = git.Repo(search_parent_directories=True)
 docs_dir = 'docs'
 
-
 def get_commit_info(file_path):
     commit = next(repo.iter_commits(paths=file_path, max_count=1))
     return commit.author.name, commit.committed_datetime.strftime('%Y-%m-%d %H:%M:%S')
-
 
 for root, dirs, files in os.walk(docs_dir):
     for file in files:
