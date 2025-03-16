@@ -1,3 +1,17 @@
+---
+keywords:
+  - SCModel
+  - service chain validations
+  - SLA
+  - service chain model
+authors: 
+  - name: "Daniel Galván Cancio"
+    title: "Project Contributor"
+    url: "https://github.com/Dangalcan"
+    image_url: "https://avatars.githubusercontent.com/u/92941017"
+copyright: "© 2025 Lucid Chain Wizard by ISA Research Group. All rights reserved."
+---
+
 # Constraints
 
 In this section we are going to describe all validations related to SCModel in order to have a correct service chain.
