@@ -3,5 +3,5 @@
 {% block content %}
   {{ super() }}
 
-  <p>Last updated on {{ page.meta.git_revision_date_localized }}</p>
+  <p>Last updated on {{ page.meta.git_revision_date_localized }} by: {{ page.meta.last_commiter }}</p>
   {% endblock %}
