@@ -3,5 +3,14 @@
 {% block content %}
   {{ super() }}
 
-  <p>Last updated on {{ page.meta.git_revision_date_localized }} by: {{ page.meta.last_commiter }}</p>
+  {% endblock %}
+
+
+  {% block footer %}
+  <footer>
+    <div class="custom-footer">
+      <p>Last updated on <strong>{{ page.meta.git_revision_date_localized }} </strong> by <strong> {{ page.meta.last_commiter }}</strong>></p>
+    </div>
+    <div>
+    {{ super() }}
   {% endblock %}
