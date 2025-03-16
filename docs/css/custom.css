@@ -1,0 +1,59 @@
+/* Variables de color personalizadas para MkDocs */
+:root {
+  --primary-color: #40b9d7;
+  --highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --last-updated-color: var(--primary-color);
+}
+
+[data-theme='dark'] {
+  --primary-color: #2a8ba6;
+  --highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --last-updated-color: var(--primary-color);
+}
+
+body {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--primary-color);
+}
+
+a {
+  color: var(--primary-color);
+}
+
+a:hover {
+  color: var(--primary-color-dark);
+}
+
+pre, code {
+  background-color: var(--highlighted-code-line-bg);
+  color: #333;
+}
+
+.theme-last-updated time,
+.theme-last-updated b {
+  font-size: 14px;
+  color: var(--last-updated-color);
+  font-weight: bold;
+  font-style: italic;
+  text-align: right;
+  margin-top: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.pagination-nav__sublabel {
+  display: none;
+}
+
+blockquote {
+  border-left: 4px solid var(--primary-color);
+  padding-left: 10px;
+  font-style: italic;
+  color: #555;
+}
+

@@ -6,3 +6,10 @@ The goal of the [Lucid Chain Wizard Specification](./Specification.md) is to pro
 See the page [here](https://lucidchain.github.io/specs/)
 
 We also provide some examples which define the service chain models in order to illustrate the main concepts of the specification.
+
+To run it locally just run these commands:
+
+```bin/bash
+mkdocs build
+mkdocs serve
+```

@@ -11,8 +11,13 @@ nav:
 - Home: 'index.md'
 - Specification: 'Specification.md'
 - Constraints: 'Constraints.md'
+- 'Theme': 'javascript:void(0);'
 extra:
   favicon: favicon.ico
 #- About:
 #    - 'License': 'license.md'
 # to deploy to github: mkdocs gh-deploy -c -b gh-pages -v
+extra_css: 
+  - 'css/custom.css'
+extra_javascript:
+  - 'js/custom.js' 
