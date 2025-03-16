@@ -119,7 +119,7 @@ This section of the yaml defines the service chain configuration. It is essentia
 | initial           | [`ServiceStateObject[]`](#servicestateobject) | Optional      | List of initial services and their states. It is not optional if chain type is state. |
 | terminal          | [`ServiceStateObject[]`](#servicestateobject) | Optional      | List of terminal services and their states. It is not optional if chain type is state. |
 | ownership-type    | [`OwnershipType`](#ownershiptype)                            | Optional      | Defines the ownership type. By default its value is 'state' It is not optional if chain type is state. |
-| initial-sla      | `String`                            | **Optional**      | It is the **name** of the initial SLA assigned to the service chain. It will be the SLA taken into account when a new issue is created and it has not changed its state. It is not optional if chain type is state. |
+| initial-sla      | `String`                            | Optional      | It is the **name** of the initial SLA assigned to the service chain. It will be the SLA taken into account when a new issue is created and it has not changed its state. It is not optional if chain type is state. |
 
 ---
 
