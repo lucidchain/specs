@@ -1,4 +1,4 @@
-name: Deploy MkDocs to GitHub Pages
+name: Deploy Documentation to GitHub Pages
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,22 +20,18 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
           pip install mkdocs
+          pip install mkdocs-material
 
-      # Paso 4: Construir el sitio con MkDocs
-      - name: Build the MkDocs site
+      - name: Build documentation
         run: mkdocs build
 
-      # Paso 4.5: Crear el archivo CNAME
-      # - name: Create CNAME file
-      #   run: echo "lucidchain.specs.governify.io" > site/CNAME
-
-      # Paso 5: Desplegar en GitHub Pages
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4.1.1
-        with:
-          branch: gh-pages
-          folder: site
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git remote add origin https://github.com/${{ github.repository }}.git
+          git checkout -b gh-pages
+          git add .
+          git commit -m "Deploy documentation"
+          git push origin gh-pages --force
