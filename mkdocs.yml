@@ -10,6 +10,7 @@ theme: cosmo
 pages:
 - Home: 'index.md'
 - Specification: 'Specification.md'
+- Constraints: 'Constraints.md'
 #- About:
 #    - 'License': 'license.md'
 # to deploy to github: mkdocs gh-deploy -c -b gh-pages -v
