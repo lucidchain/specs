@@ -30,7 +30,13 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Remove the existing remote if it exists, to avoid errors
+          git remote remove origin || true
+          
+          # Add the remote again
           git remote add origin https://github.com/${{ github.repository }}.git
+          
           git checkout -b gh-pages
           git add .
           git commit -m "Deploy documentation"
