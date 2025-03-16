@@ -27,22 +27,30 @@ jobs:
           pip install mkdocs-material
 
       - name: Build documentation
-        run: | 
+        run: |
           rm .gitignore
-          mkdocs build
+          mkdocs build  # Esto generará los archivos estáticos en la carpeta `site`
 
       - name: Deploy to GitHub Pages
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          # Remove the existing remote if it exists, to avoid errors
+          # Remover el remoto origin si ya existe para evitar errores
           git remote remove origin || true
           
-          # Add the remote again
+          # Agregar el remoto de nuevo
           git remote add origin https://github.com/${{ github.repository }}.git
           
+          # Cambiar a la rama `gh-pages`
           git checkout -B gh-pages
+          
+          # Copiar los archivos generados por `mkdocs build` en la carpeta `site/` a la raíz de la rama `gh-pages`
+          cp -r site/* .
+
+          # Agregar y hacer commit de los archivos generados
           git add .
           git commit -m "Deploy documentation"
+          
+          # Subir los cambios a la rama `gh-pages`
           git push origin gh-pages --force
