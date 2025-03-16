@@ -27,7 +27,7 @@ jobs:
           pip install mkdocs-material
           pip install mkdocs-git-revision-date-localized-plugin
           pip install -r requirements.txt
-          python commit_info.py
+          python getLastCommiter.py
 
       - name: Build documentation
         run: |
