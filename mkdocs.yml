@@ -1,16 +1,17 @@
-docs_dir: '.'
+docs_dir: 'docs'
 site_name: Lucid chain wizard specification
 site_url: http://lucidchain.specs.governify.io
 repo_url: https://github.com/lucidchain/specs
 site_description: Lucid chain wizard specification
 site_author: ISA Research Group
-site_favicon: favicon.ico
 copyright: by ISA Research Group
-theme: cosmo
-pages:
+theme: mkdocs
+nav:
 - Home: 'index.md'
 - Specification: 'Specification.md'
 - Constraints: 'Constraints.md'
+extra:
+  favicon: favicon.ico
 #- About:
 #    - 'License': 'license.md'
 # to deploy to github: mkdocs gh-deploy -c -b gh-pages -v
