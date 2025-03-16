@@ -1,6 +1,7 @@
 docs_dir: 'docs'
 site_name: Lucid chain wizard specification
-site_url: http://lucidchain.specs.governify.io
+# site_url: http://lucidchain.specs.governify.io
+site_url: https://lucidchain.github.io/specs/
 repo_url: https://github.com/lucidchain/specs
 site_description: Lucid chain wizard specification
 site_author: ISA Research Group
