@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {{ super() }}
+
+  <p>Last updated on {{ page.meta.git_revision_date_localized }}</p>
+  {% endblock %}
