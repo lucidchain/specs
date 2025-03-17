@@ -1,0 +1,306 @@
+context:
+  id: 1
+  version: 1
+  config:
+    service-chain-type: "state" 
+    initial: 
+      - service: "Revisar Entrega"
+        states:
+          - "EN ESTUDIO"
+          - "EN ESPERA"
+    terminal:
+      - service: "Validar Despliegue"
+        states:
+          - "ENTREGA TRAMITADA"
+      - service: "*"
+        states:
+          - "ENTREGA DENEGADA"
+    ownership-type: "state+team"
+    initial-sla: "REVISAR_ENTREGA_SLA"
+  chain-name: "Entregas de Software: Caso Juan"
+  description: "Sistema de entregas de software"
+orgs:
+  - code: PROV_DESARROLLO_1_ORG
+    name: PROV_DESARROLLO_1
+    teams:
+      - name: PROV_DESARROLLO_1_TEAM
+        x-redmine-profile: FunctionalUser
+        members:
+          - name: Francisco
+            user: franito
+            email: fran@us.es
+            roles:
+              - name: Desarrollador
+    services:
+      - name: Solicitar Informacion
+        description: "..." 
+        x-redmine-state: "SOL INFORMACION"
+        x-redmine-tickets-types: 
+          - "SEM-Solicitud Entrega Menor"
+          - "SEMY-Solicitud Entrega Mayor"
+          - "SEU-Entrega Urgente"          
+        teams:
+          - name: PROV_DESARROLLO_1_TEAM
+        providers:
+          - name: OTP_CALIDAD
+            service: Revisar Entrega
+            sla: SOL_INFO_SLA
+          - name: PROV_SISTEMAS
+            service: Desplegar en Pruebas
+            sla: SOL_INFO_SLA
+          - name: OFICINA_DESARROLLO
+            service: Validar Despliegue
+            sla: SOL_INFO_SLA
+        customers:
+          - name: OTP_CALIDAD
+            sla: SOL_INFO_SLA
+          - name: PROV_SISTEMAS
+            sla: SOL_INFO_SLA
+          - name: OFICINA_DESARROLLO
+            sla: SOL_INFO_SLA
+
+  - code: OTP_CALIDAD_ORG
+    name: OTP_CALIDAD
+    teams:
+      - name: OTP_CALIDAD_TEAM
+        x-redmine-profile: FunctionalUser
+        members:
+          - name: Maria
+            user: mariia
+            email: maria@us.es
+            roles:
+              - name: Calidad
+    services:
+      - name: Revisar Entrega
+        description: "..." 
+        x-redmine-state: "EN ESTUDIO"
+        x-redmine-tickets-types: 
+          - "SEM-Solicitud Entrega Menor"
+          - "SEMY-Solicitud Entrega Mayor"
+          - "SEU-Entrega Urgente"
+        teams:
+          - name: OTP_CALIDAD_TEAM
+        customers:
+          - name: PROV_DESARROLLO_1
+            sla: SOL_INFO_SLA  
+        providers:
+          - name: PROV_SISTEMAS
+            service: Desplegar en Pruebas
+            sla: DESPLIEGUE_PRUEBAS_SLA
+            cardinality: 1..1
+          - name: PROV_DESARROLLO_1
+            service: Solicitar Informacion
+            sla: SOL_INFO_SLA
+            cardinality: 1..1
+  
+  - code: PROV_SISTEMAS_ORG
+    name: PROV_SISTEMAS
+    teams:
+      - name: PROV_SISTEMAS_TEAM
+        x-redmine-profile: FunctionalUser
+        members:
+          - name: Manuel
+            user: lolo
+            email: manu@us.es
+            roles:
+              - name: Desarrollador
+    services:
+      - name: Desplegar en Pruebas
+        description: "..." 
+        x-redmine-state: "EN CURSO"
+        x-redmine-tickets-types: 
+          - "SEM-Solicitud Entrega Menor"
+          - "SEMY-Solicitud Entrega Mayor"
+          - "SEU-Entrega Urgente"
+
+        teams:
+          - name: PROV_SISTEMAS_TEAM
+        customers:
+          - name: OTP_CALIDAD
+            sla: DESPLIEGUE_PRUEBAS_SLA
+          - name: PROV_DESARROLLO_1
+            sla: SOL_INFO_SLA
+        providers:
+          - name: OFICINA_DESARROLLO
+            service: Validar Despliegue
+            sla: VALIDAR_DESPLIEGUE_SLA
+            cardinality: 1..1
+          - name: PROV_DESARROLLO_1
+            service: Solicitar Informacion
+            sla: SOL_INFO_SLA   
+            cardinality: 1..1             
+
+  - code: OFICINA_DESARROLLO_ORG
+    name: OFICINA_DESARROLLO
+    teams:
+      - name: OFICINA_DESARROLLO_TEAM
+        x-redmine-profile: FunctionalUser
+        members:
+          - name: Juan
+            user: juanotp
+            email: jaun@us.es
+            roles:
+              - name: Desarrollador
+    services:
+      - name: Validar Despliegue
+        description: "..." 
+        x-redmine-state: "PENDIENTE VALIDACION"
+        x-redmine-tickets-types: 
+          - "SEM-Solicitud Entrega Menor"
+          - "SEMY-Solicitud Entrega Mayor"
+          - "SEU-Entrega Urgente"
+        teams:
+          - name: OFICINA_DESARROLLO_TEAM
+        customers:
+          - name: PROV_SISTEMAS
+            sla: VALIDAR_DESPLIEGUE_SLA
+          - name: PROV_DESARROLLO_1
+            sla: SOL_INFO_SLA
+        providers:
+          - name: PROV_DESARROLLO_1
+            service: Solicitar Informacion
+            sla: SOL_INFO_SLA
+            cardinality: 1..1
+
+sla:
+  - name: REVISAR_ENTREGA_SLA
+    guarantees:
+      - scope:
+            x-redmine-tickets-type: "SEM-Solicitud Entrega Menor"
+        objectives:
+          tto:
+            max:
+              value: 2
+              unit: days
+          ttr:
+            max:
+              value: 2
+              unit: days
+      - scope:
+            x-redmine-tickets-type: "SEMY-Solicitud Entrega Mayor"
+        objectives:
+          tto:
+            max:
+              value: 12
+              unit: hours
+          ttr:
+            max:
+              value: 12
+              unit: hours
+      - scope:
+            x-redmine-tickets-type: "SEU-Entrega Urgente"
+        objectives:
+          tto:
+            max:
+              value: 90
+              unit: hours
+          ttr:
+            max:
+              value: 90
+              unit: hours
+
+  - name: SOL_INFO_SLA
+    guarantees:
+      - scope:
+            x-redmine-tickets-type: "SEM-Solicitud Entrega Menor"
+        objectives:
+          tto:
+            max:
+              value: 2
+              unit: days
+          ttr:
+            max:
+              value: 2
+              unit: days
+      - scope:
+            x-redmine-tickets-type: "SEMY-Solicitud Entrega Mayor"
+        objectives:
+          tto:
+            max:
+              value: 12
+              unit: hours
+          ttr:
+            max:
+              value: 12
+              unit: hours
+      - scope:
+            x-redmine-tickets-type: "SEU-Entrega Urgente"
+        objectives:
+          tto:
+            max:
+              value: 90
+              unit: hours
+          ttr:
+            max:
+              value: 90
+              unit: hours
+  - name: DESPLIEGUE_PRUEBAS_SLA
+    guarantees:
+      - scope:
+            x-redmine-tickets-type: "SEM-Solicitud Entrega Menor"
+        objectives:
+          tto:
+            max:
+              value: 2
+              unit: days
+          ttr:
+            max:
+              value: 2
+              unit: days
+      - scope:
+            x-redmine-tickets-type: "SEMY-Solicitud Entrega Mayor"
+        objectives:
+          tto:
+            max:
+              value: 12
+              unit: hours
+          ttr:
+            max:
+              value: 12
+              unit: hours
+      - scope:
+            x-redmine-tickets-type: "SEU-Entrega Urgente"
+        objectives:
+          tto:
+            max:
+              value: 90
+              unit: hours
+          ttr:
+            max:
+              value: 90
+              unit: hours
+  - name: VALIDAR_DESPLIEGUE_SLA
+    guarantees:
+      - scope:
+            x-redmine-tickets-type: "SEM-Solicitud Entrega Menor"
+        objectives:
+          tto:
+            max:
+              value: 2
+              unit: days
+          ttr:
+            max:
+              value: 2
+              unit: days
+      - scope:
+            x-redmine-tickets-type: "SEMY-Solicitud Entrega Mayor"
+        objectives:
+          tto:
+            max:
+              value: 12
+              unit: hours
+          ttr:
+            max:
+              value: 12
+              unit: hours
+      - scope:
+            x-redmine-tickets-type: "SEU-Entrega Urgente"
+        objectives:
+          tto:
+            max:
+              value: 90
+              unit: hours
+          ttr:
+            max:
+              value: 90
+              unit: hours
