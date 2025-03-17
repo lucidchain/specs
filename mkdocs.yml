@@ -9,13 +9,13 @@ copyright: by ISA Research Group
 theme: 
   name: mkdocs
   custom_dir: overrides
+  favicon: favicon.ico
+
 nav:
 - Home: 'index.md'
 - Specification: 'Specification.md'
 - Constraints: 'Constraints.md'
 - 'Theme': 'javascript:void(0);'
-extra:
-  favicon: favicon.ico
 
 #- About:
 #    - 'License': 'license.md'
