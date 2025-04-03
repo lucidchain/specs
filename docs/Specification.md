@@ -138,6 +138,7 @@ This section of the yaml defines the service chain configuration. It is essentia
 | service-chain-type | [ServiceChainType](#servicechaintype)                            | **Required**      | Type of service chain. |
 | initial           | [ServiceStateObject[]](#servicestateobject) | Optional      | List of initial services and their states. It is not optional if chain type is state. |
 | terminal          | [ServiceStateObject[]](#servicestateobject) | Optional      | List of terminal services and their states. It is not optional if chain type is state. |
+| x-redmine-custom-fields          | [RedmineCustomFieldObject[]](#redminecustomfieldobject) | Optional      | List of Redmine custom fields that will be added to your Redmine's entities. |
 | ownership-type    | [OwnershipType](#ownershiptype)                            | Optional      | Defines the ownership type. By default its value is 'state' It is not optional if chain type is state. |
 | initial-sla      | `String`                            | Optional      | It is the **name** of the initial SLA assigned to the service chain. It will be the SLA taken into account when a new issue is created and it has not changed its state. It is not optional if chain type is state. |
 
@@ -151,6 +152,7 @@ This section of the yaml defines the service chain configuration. It is essentia
   terminal: ServiceStateObject[]
   ownership-type: "state+team"
   initial-sla: "REVIEW_SHIP_SLA"
+  x-redmine-custom-fields: RedmineCustomFieldObject[]
 ```
 
 ##### Configuration type faceted example
@@ -188,6 +190,56 @@ This section of the yaml defines the service chain configuration. It is essentia
 
 This means that the service with the name "Review ship" has 2 terminal or initial states (depending on where this ServiceStateObject is). Theese states are "STUDYING" and "DRAFT".
 
+### `RedmineCustomFieldObject`
+
+| Field name     | Field type                          | Required/Optional | Description |
+|---------------|------------------------------------|-------------------|-------------|
+| name         | `String`                           | **Required**       | Name of the Redmine custom field. |
+| redmineType  |  [RedmineType](#redminetype)                      | **Required**       | The type of the Redmine custom field. |
+| field_format | [RedmineFieldFormat](#redminefieldformat)              | Optional           | Defines the format of the field. By default its value is ***string***. |
+| is_required  | `Boolean`                         | Optional           | Indicates whether the field is required or not. By default its value is ***false***. |
+| is_for_all   | `Boolean`                         | Optional           | Specifies if the field applies to all new objects from the Type specified in RedmineType. By default its value is ***true***. |
+| description  | `String`                           | Optional           | Additional description of the custom field. By default its value is ***...***. |
+| regexp       | `String`                           | Optional           | Regular expression pattern to validate the field input. ***It can only have a value if  field_format is string***|
+| default_value | `String\|Integer\|Boolean\|Float` | Optional           | Default value for the custom field if not specified. Take into account that its value must be the same type as field_format. |
+
+#### RedmineCustomFieldObject example
+
+```yaml
+    name: 'Phone'
+    field_format: 'string'
+    redmineType: 'UserCustomField'
+    regexp: '(?:\+34\s?)?(6\d{8}|7\d{8}|8\d{8}|9\d{8})'
+```
+
+### `RedmineType`
+
+This property is related to the entity in which we want to include the new custom field. Redmine only allows the following values.
+
+| Value  | Description  |  
+|-------- |------------- |  
+| `IssueCustomField`   | The custom field will be added as a property to Redmine issues. |  
+| `TimeEntryCustomField`  | The custom field will be added as a property to Redmine Time entries. |
+| `ProjectCustomField`  | The custom field will be added as a property to Redmine projects. |
+| `VersionCustomField`  | The custom field will be added as a property to Redmine version objects. |
+| `DocumentCustomField`  | The custom field will be added as a property to Redmine document objects. |
+| `UserCustomField`  | The custom field will be added as a property to Redmine users. |
+| `GroupCustomField`  | The custom field will be added as a property to Redmine groups. |
+| `TimeEntryActivityCustomField`  | The custom field will be added as a property to Redmine activities. |
+| `IssuePriorityCustomField`  | The custom field will be added as a property to Redmine issue priorities. |
+| `DocumentCategoryCustomField`  | The custom field will be added as a property to Redmine document categories. |
+
+### `RedmineFieldFormat`
+
+This property specifies the type of the custom field that you want to add to your Redmine entities. In the future we may add some more but until now only the following are supported.
+
+| Value  | Description  |  
+|-------- |------------- |  
+| `string`   | The custom field which will be added as a property to Redmine objects will be type ***String***. |  
+| `int`  | The custom field which will be added as a property to Redmine objects will be type ***Integer***. |
+| `bool`  | The custom field which will be added as a property to Redmine objects will be type ***Boolean***. |
+| `float`  | The custom field which will be added as a property to Redmine objects will be type ***Float***. |
+
 ### `OwnershipType`
 
 This property default value is 'state'. It has really strong implications in TTO and TTR calculations,
@@ -195,8 +247,8 @@ which implies that it is common for all issues created.
 
 | Value  | Description  |  
 |-------- |------------- |  
-| `state`   | Represents ownershiip-type state. It means that TTO is calculated as the sum of the times between each change of state and the moment the issue is assigned to a person. TTR is calculated as the sum of the times between each user assignation and each change of state. |  
-| `state+team`  | Represents ownershiip-type state+team. It means that TTO is calculated as the sum of the times between each group assignation and the moment the issue is assigned to a person. TTR is calculated as the sum of the times betwwen each user asignation and each group assignation plus the time between the last group assignation and the closing date. |
+| `state`   | Represents ownership-type state. It means that TTO is calculated as the sum of the times between each change of state and the moment the issue is assigned to a person. TTR is calculated as the sum of the times between each user assignation and each change of state. |  
+| `state+team`  | Represents ownership-type state+team. It means that TTO is calculated as the sum of the times between each group assignation and the moment the issue is assigned to a person. TTR is calculated as the sum of the times betwwen each user asignation and each group assignation plus the time between the last group assignation and the closing date. |
 
 ---
 
