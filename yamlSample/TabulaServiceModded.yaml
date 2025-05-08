@@ -1,0 +1,185 @@
+context: 
+  id: 1
+  version: 1
+  config:
+    service-chain-type: "faceted"
+orgs:
+  - name: Ciudadania
+    code: CIUDAD
+  - name: Unidad de Investigacion y Difusion del Patrimonio
+    code: UIDPH
+    teams:
+      - name: Staff Arqueologos
+        x-redmine-profile: FunctionalUser
+        x-itop-profiles:
+            - x-itop-profile: Configuration Manager
+            - x-itop-profile: Service Desk Agent
+            - x-itop-profile: Support Agent
+            - x-itop-profile: Problem Manager
+            - x-itop-profile: Service Manager
+        members:
+          - name: Lucia A
+            user: lucii
+            email: luciano@us.es
+            roles:
+              - name: Support
+    services:
+      - name: Servicio Tabula
+        description: |
+          Repositorio de Investigacion y Difusion del Patrimonio Historico 
+          Andaluz de la Consejeria de Turismo, Cultura y Deporte
+        teams:
+          - name: Staff Arqueologos
+        customers:
+          - name: Ciudadania
+            sla: TabulaCiudadaniaSla
+        providers:
+          - name: Agencia Digital de Andalucia
+            service: Servicio Tabula IT
+            sla: TabulaSla
+            cardinality: 1..N
+
+  - name: Agencia Digital de Andalucia
+    code: ADA
+    teams:
+      - name: ADA Developers
+        x-redmine-profile: ITUser
+        x-itop-profiles:
+            - x-itop-profile: Configuration Manager
+            - x-itop-profile: Service Desk Agent
+            - x-itop-profile: Support Agent
+            - x-itop-profile: Problem Manager
+            - x-itop-profile: Service Manager
+        members:
+          - name: Manolo L
+            user: manollo
+            email: manolama@us.es
+            roles:
+              - name: Developer
+    services:
+      - name: Servicio Tabula IT
+        description: Mantenimiento del Servicio Tabula
+        teams:
+          - name: ADA Developers
+        customers:
+          - name: Unidad de Investigacion y Difusion del Patrimonio
+            sla: TabulaSla
+        providers:
+          - name: Proveedor de Infraestructuras y Comunicaciones
+            service: Servicio Infraestructura IT
+            sla: InfraestructuraITSla
+            cardinality: 1..N
+          - name: Handle
+            service: Servicio Handle.net
+            sla: HandleSla
+            cardinality: 1..N
+
+  - name: Proveedor de Infraestructuras y Comunicaciones
+    code: ITICP
+    teams:
+      - name: IT Infrastructura
+        x-redmine-profile: ITUser
+        x-itop-profiles:
+            - x-itop-profile: Configuration Manager
+            - x-itop-profile: Service Desk Agent
+            - x-itop-profile: Support Agent
+            - x-itop-profile: Problem Manager
+            - x-itop-profile: Service Manager
+        members:
+          - name: Gonzalo A
+            user: gonsa
+            email: gonza@us.es
+            roles:
+              - name: System Engineer
+    services:
+      - name: Servicio Infraestructura IT
+        description: Mantenimiento del Servicio Infraestructura IT
+        teams:
+          - name: IT Infrastructura
+        customers:
+          - name: Agencia Digital de Andalucia
+            sla: InfraestructuraITSla
+
+  - name: Handle
+    code: HANDLE
+    teams:
+      - name: HDevelopers
+        x-redmine-profile: ITUser
+        x-itop-profiles:
+            - x-itop-profile: Configuration Manager
+            - x-itop-profile: Service Desk Agent
+            - x-itop-profile: Support Agent
+            - x-itop-profile: Problem Manager
+            - x-itop-profile: Service Manager
+        members:
+          - name: Antonio A
+            user: tony
+            email: antonito@us.es
+            roles:
+              - name: Developer
+    services:
+      - name: Servicio Handle.net
+        description: Handle.net
+        teams:
+          - name: HDevelopers
+        customers:
+          - name: Agencia Digital de Andalucia
+            sla: HandleSla
+
+sla:
+  - name: TabulaCiudadaniaSla
+    guarantees:
+      - scope: 
+          x-itop-priority: 1
+          x-itop-request-type: incident
+        objectives:
+          ttr:
+            max:
+              value: 48
+              unit: hours
+          tto:
+            max:
+              value: 48
+              unit: hours
+  - name: TabulaSla
+    guarantees:
+      - scope:
+          x-itop-priority: 1
+          x-itop-request-type: incident
+        objectives:
+          ttr:
+            max:
+              value: 48
+              unit: hours
+          tto:
+            max:
+              value: 48
+              unit: hours
+  - name: InfraestructuraITSla
+    guarantees:
+      - scope:
+          x-itop-priority: 1
+          x-itop-request-type: incident
+        objectives:
+          ttr:
+            max:
+              value: 48
+              unit: hours
+          tto:
+            max:
+              value: 48
+              unit: hours
+  - name: HandleSla
+    guarantees:
+      - scope:
+          x-itop-priority: 1
+          x-itop-request-type: incident
+        objectives:
+          ttr:
+            max:
+              value: 48
+              unit: hours
+          tto:
+            max:
+              value: 48
+              unit: hours

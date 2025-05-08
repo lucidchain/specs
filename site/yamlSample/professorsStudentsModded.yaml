@@ -1,0 +1,124 @@
+context: 
+  id: 1
+  version: 2
+  config:
+    service-chain-type: "faceted"
+orgs:
+  - name: Delegados
+    code: DEL
+    teams:
+    - name: Delegados Group
+      x-redmine-profile: FunctionalUser
+      x-itop-profiles:
+        - x-itop-profile: Configuration Manager
+        - x-itop-profile: Service Desk Agent
+        - x-itop-profile: Support Agent
+        - x-itop-profile: Problem Manager
+        - x-itop-profile: Service Manager
+      members:
+        - name: Delegado1
+          user: delega1
+          email: delegado1@us.es
+          roles:
+            - name: Delegado
+    services:
+      - name: Servicio Delegación
+        description: Servicio de la delegación de alumnos
+        teams: 
+          - name: Delegados Group
+        customers: 
+          - name: Profesores
+            sla: ServicioDelegacionSla
+          - name: Alumnos 
+            sla: ServicioDelegacionSla
+        providers:
+          - name: Alumnos
+            service: Servicio de Alumnos
+            sla: ServicioAlumnosSla
+  - name: Profesores
+    code: PROF
+    teams:
+      - name: Grupo Profesores
+        x-redmine-profile: FunctionalUser
+        x-itop-profiles:
+          - x-itop-profile: Portal power user
+          - x-itop-profile: Portal user
+        members:
+          - name: Julio
+            user: julius
+            email: julio@us.es
+            x-itop-default-password: changeNOTMe1@
+            roles:
+              - name: Profesor
+          - name: Julio Grupo
+            x-itop-external: false
+            user: grupoJulio
+            email: grupo17pgpi@gmail.com
+            roles:
+              - name: Profesor
+  - name: Alumnos
+    code: ALUM
+    teams:
+      - name: Grupo 1
+        x-redmine-profile: ITUser
+        x-itop-profiles:
+          - x-itop-profile: Configuration Manager
+          - x-itop-profile: Service Desk Agent
+          - x-itop-profile: Support Agent
+          - x-itop-profile: Problem Manager
+          - x-itop-profile: Service Manager
+        members:
+          - name: Daniel Galván Cacnio
+            user: dangalcan
+            email: dangalcan@us.es
+            x-itop-external: true
+            roles:
+              - name: Almuno
+          - name: Juan
+            user: juanito
+            email: juan@alum.us.es
+            roles:
+              - name: Almuno
+          - name: Paula
+            user: pauliii
+            email: paula@alum.us.es
+            roles:
+              - name: Almuno
+    services:
+      - name: Servicio de Alumnos
+        description: Servicio de los alumnos del grupo 2  
+        teams:
+          - name: Grupo 1
+        customers:
+          - name: Profesores
+            sla: ServicioAlumnosSla
+sla:
+  - name: ServicioDelegacionSla
+    guarantees:
+      - scope:
+          x-itop-priority: 1
+          x-itop-request-type: incident
+        objectives:
+          ttr:
+            max:
+              value: 65
+              unit: hours
+          tto:
+            max:
+              value: 65
+              unit: hours
+  - name: ServicioAlumnosSla
+    guarantees:
+      - scope:
+          x-itop-priority: 1
+          x-itop-request-type: incident
+        objectives:
+          ttr:
+            max:
+              value: 48
+              unit: hours
+          tto:
+            max:
+              value: 48
+              unit: hours
+

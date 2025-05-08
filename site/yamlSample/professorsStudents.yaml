@@ -1,0 +1,68 @@
+context: 
+  id: 1
+  version: 1
+  config:
+    service-chain-type: "faceted"
+orgs:
+  - name: Profesores
+    code: PROF
+    teams:
+      - name: Grupo Profesores
+        x-redmine-profile: FunctionalUser
+        x-itop-profiles:
+          - x-itop-profile: Portal power user
+          - x-itop-profile: Portal user
+        members:
+          - name: Julio
+            user: julius
+            email: julio@us.es
+            roles:
+              - name: Profesor
+  - name: Alumnos
+    code: ALUM
+    teams:
+      - name: Grupo 1
+        x-redmine-profile: ITUser
+        x-itop-profiles:
+          - x-itop-profile: Configuration Manager
+          - x-itop-profile: Service Desk Agent
+          - x-itop-profile: Support Agent
+        members:
+          - name: Pedro
+            user: perdri
+            email: pedro@alum.us.es
+            roles:
+              - name: Almuno
+          - name: Juan
+            user: juanito
+            email: juan@alum.us.es
+            roles:
+              - name: Almuno
+          - name: Paula
+            user: pauliii
+            email: paula@alum.us.es
+            roles:
+              - name: Almuno
+    services:
+      - name: Servicio de Alumnos
+        description: Servicio de los alumnos del grupo 2  
+        teams:
+          - name: Grupo 1
+        customers:
+          - name: Profesores
+            sla: ServicioAlumnosSla
+sla:
+  - name: ServicioAlumnosSla
+    guarantees:
+      - scope:
+          x-itop-priority: '*'
+          x-itop-request-type: '*'
+        objectives:
+          ttr:
+            max:
+              value: 48
+              unit: hours
+          tto:
+            max:
+              value: 48
+              unit: hours
