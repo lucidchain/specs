@@ -289,7 +289,7 @@ It is necessary that we include x-redmine-profile property when importing a chai
 
 ---
 
-### Team example
+#### Team example
 
 ```yaml
 name: "Inspection Team"
