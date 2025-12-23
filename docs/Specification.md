@@ -91,7 +91,7 @@ In type state service chains we must define initial and terminal services, becau
 | context           | [Context](#context)                         | **Required**      | Service chain context and general configuration  |
 | orgs      | [Organization](#organization)                         | **Required**      | List of all organizations including its services and teams  |
 | sla       | [SLA](#sla)   | **Required**      | List of all SLAs involved in the service chain and its guarantees. |
-| x-redmine-profiles-permissions       | [x-redmine-profiles-permission](#x-redmine-profiles-permission)   | Optional      | List of all privileges and properties from redmine profiles defined in the chain. |
+| x-redmine-profiles-permissions       | [RedmineProfilePermissionsObject](#redmineprofilepermissionsobject)   | Optional      | List of all privileges and properties from redmine profiles defined in the chain. |
 
 ---
 
@@ -624,9 +624,9 @@ Defines the possible values for time units.
 
 ## `x-redmine-profiles-permissions` Objects
 
-### `x-redmine-profiles-permissions`
-
 This property is meant to include all data required to create redmine profiles and associate privileges to them. **x-redmine-profiles-permissions** section must contain the following atributes and schema.
+
+### `x-redmine-profiles-permissions`
 
 | Field name  | Field type                        | Required/Optional  | Description  |  
 |------------ |-------------------------------- |------------------- |------------- |  
