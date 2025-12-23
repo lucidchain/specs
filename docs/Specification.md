@@ -84,7 +84,6 @@ In type state service chains we must define initial and terminal services, becau
   <strong>Figure 3:</strong> <em>Graph representation of a service chain type state chain.</em>
 </p>
 
-
 ## Yaml structure  
 
 | Field name    | Field type                          | Required/Optional | Description  |
@@ -92,6 +91,7 @@ In type state service chains we must define initial and terminal services, becau
 | context           | [Context](#context)                         | **Required**      | Service chain context and general configuration  |
 | orgs      | [Organization](#organization)                         | **Required**      | List of all organizations including its services and teams  |
 | sla       | [SLA](#sla)   | **Required**      | List of all SLAs involved in the service chain and its guarantees. |
+| x-redmine-profiles-permissions       | [x-redmine-profiles-permission](#x-redmine-profiles-permission)   | Optional      | List of all privileges and properties from redmine profiles defined in the chain. |
 
 ---
 
@@ -201,7 +201,9 @@ This means that the service with the name "Review ship" has 2 terminal or initia
 | is_for_all   | `Boolean`                         | Optional           | Specifies if the field applies to all new objects from the Type specified in RedmineType. By default its value is ***true***. |
 | description  | `String`                           | Optional           | Additional description of the custom field. By default its value is ***...***. |
 | regexp       | `String`                           | Optional           | Regular expression pattern to validate the field input. ***It can only have a value if  field_format is string***|
-| default_value | `String\|Integer\|Boolean\|Float` | Optional           | Default value for the custom field if not specified. Take into account that its value must be the same type as field_format. |
+| default_value | `String\|Integer\|Boolean\|Float\Date` | Optional           | Default value for the custom field if not specified. Take into account that its value must be the same type as field_format. |
+| possible_values | `String` | Optional           | Possible values that will appear in the list. It must be a string with values separated by commas. For example: `"option1,option2,option3,option4"`. Note that this property is only available if field_format is **list**, and in that case this property is required |
+| multiple | `Boolean` | Optional           | This property allows users to add more than one value to the list. By default its value is **false**.  Note that this property is only available if field_format is **list** |
 
 #### RedmineCustomFieldObject example
 
@@ -239,6 +241,8 @@ This property specifies the type of the custom field that you want to add to you
 | `int`  | The custom field which will be added as a property to Redmine objects will be type ***Integer***. |
 | `bool`  | The custom field which will be added as a property to Redmine objects will be type ***Boolean***. |
 | `float`  | The custom field which will be added as a property to Redmine objects will be type ***Float***. |
+| `date`  | The custom field which will be added as a property to Redmine objects will be type ***Datetime***. |
+| `list`  | The custom field which will be added as a property to Redmine objects will be type ***List<String>***. |
 
 ### `OwnershipType`
 
@@ -283,7 +287,7 @@ It is necessary that we include x-redmine-profile property when importing a chai
 | Field name  | Field type                        | Required/Optional  | Description  |  
 |------------ |---------------------------------|------------------- |------------- |  
 | name        | `String`                         | **Required**       | Name of the team. |  
-| x-redmine-profile | [RedmineProfile](#redmineprofile)                     | Optional       | Redmine profile associated with the team. |  
+| x-redmine-profiles | [RedmineProfile[]](#redmineprofile)                     | Optional       | Redmine profiles associated with the team. |  
 | x-itop-profiles     | [ITopProfile[]](#itopprofile) | Optional       | List of all ITop profiles associated with the team. |  
 | members     | [Member[]](#member) | **Required**       | List of all the team members. |
 
@@ -293,7 +297,7 @@ It is necessary that we include x-redmine-profile property when importing a chai
 
 ```yaml
 name: "Inspection Team"
-x-redmine-profile: FunctionalUser
+x-redmine-profiles: RedmineProfile[]
 x-itop-profiles: ITopProfile[]
 members: Member[]
 ```
@@ -304,10 +308,22 @@ Defines the possible Redmine profiles for the users in the team. This profiles a
 
 **NOTE**: This privileges are inherited to all team members.
 
+| Field name  | Field type                        | Required/Optional  | Description  |  
+|------------ |---------------------------------|------------------- |------------- |  
+| x-redmine-profile | `String`                     | **Required**       | Redmine profile name associated with the team. The privileges are specified in property `x-redmine-profiles-permissions` |  
+
+If there are not any profiles defined, these are the ones used and their privileges.
+
 | Value  | Description  |  
 |----------------------------- |------------------------------------ |  
-| `FunctionalUser`  | It allows the members of the team to manage issues. |  
-| `ITUser`  | Currently it does not provide any privileges. In the future it will do it. |  
+| `FunctionalUser`  | It has all the permissions available in Redmine. |  
+| `ITUser`  | Currently it does not provide any privileges. In the future it might do it. |
+
+#### RedmineProfile example
+
+```yaml
+x-redmine-profile: "Tester" 
+```
 
 ---
 
@@ -358,6 +374,7 @@ Here we leave the ITop official documentation chart about profiles.
 | x-itop-default-password       | `String`   | Optional       | If the user is going to be imported on ITop and it is not going to be an externalUser, you can choose this account's password with this property. It must contains at least 8 characters, 1 number, 1 uppercase, 1 lowercase and 1 special character. If this property is not defined, by default the password will be **changeMe1@**. |  
 | x-itop-external       | `Boolean`   | Optional       | If the user is going to be imported on ITop, you can choose the account's type. If the property is ***true***, the user will be imported as an ExternalUser. In case the property is not defined or it is false, it will be imported as LocalUser. |  
 | x-itop-profiles     | [ITopProfile[]](#itopprofile) | Optional       | In addition to all ITop profiles associated with the team that the user inherits, you can add some private profiles to it using this property. |
+| x-redmine-profiles     | [RedmineProfile[]](#redmineProfile) | Optional       | In addition to all Redmine profiles associated with the team that the user inherits, you can add some private profiles to it using this property. |
 
 ---
 
@@ -604,6 +621,129 @@ Defines the possible values for time units.
 | `days`   | Represents days as a unit of time. |  
 | `hours`  | Represents hours as a unit of time. |
 | `minutes`  | Represents minutes as a unit of time. |
+
+## `x-redmine-profiles-permissions` Objects
+
+### `x-redmine-profiles-permissions`
+
+This property is meant to include all data required to create redmine profiles and associate privileges to them. **x-redmine-profiles-permissions** section must contain the following atributes and schema.
+
+| Field name  | Field type                        | Required/Optional  | Description  |  
+|------------ |-------------------------------- |------------------- |------------- |  
+| x-redmine-profiles-permissions        | [`RedmineProfilePermissionsObject[]`](#redmineprofilepermissionsobject)                         | **Required**       | An array describing all properties and privileges from Redmine profiles defined in teams and users. |  
+
+### `RedmineProfilePermissionsObject`
+
+| Field name    | Field type                          | Required/Optional | Description  |
+|--------------|-----------------------------------|-------------------|-------------|
+| x-redmine-profile           | `String`                         | **Required**      | Unique identifier for the redmine profile. |
+| issues_visibility           | `String`                         | Optional      | It determines what issues can be seen by the user with that profile. Its values can only be `default` or `all`. Its default value is `"default"` |
+| users_visibility           | `String`                         | Optional      | It determines what users can be seen by the user with that profile. Its values can only be `default` or `members_of_visible_projects`. Its default value is `"all"` |
+| time_entries_visibility           | `String`                         | Optional      | It determines what time entries can be seen by the user with that profile. Its values can only be `all` or `own`. Its default value is `"all"` |
+| all_roles_managed           | `Boolean`                         | Optional      | It determines it this roles can be managed by all roles or not. Its default value is `true` |
+| default_time_entry_activity_id           | `String`                         | Optional      | It determines the default time entry activity asociated with this profile. Its default value is `NULL` as it has no effect in LCW yet. In the future it might have any utility. |
+| permissions           | [`RedminePrivilegeEnum[]`](#redmineprivilegeenum)                         | Optional      | It determines the permissions or privileges asociated with this profile. By default its value is `[]` |
+
+---
+
+#### RedmineProfilePermissionsObject example
+
+```yaml
+x-redmine-profile: Tester
+permissions: RedminePrivilegeEnum[]
+```
+
+#### RedmineProfilePermissionsObject example with privileges array
+
+```yaml
+x-redmine-profile: Tester
+permissions:
+  - add_project
+  - close_project
+```
+
+### RedminePrivilegeEnum
+
+This objects are meant to be as simple as they look. The only values availables are the following
+
+| Value | Description |
+|------|------------|
+| `add_project` | Allows creating new projects. |
+| `edit_project` | Allows editing project settings. |
+| `close_project` | Allows closing or archiving a project. |
+| `delete_project` | Allows permanently deleting a project. |
+| `select_project_publicity` | Allows setting the project as public or private. |
+| `select_project_modules` | Allows enabling or disabling project modules. |
+| `manage_members` | Allows adding, editing, or removing project members. |
+| `manage_versions` | Allows managing project versions and milestones. |
+| `add_subprojects` | Allows creating subprojects. |
+| `manage_public_queries` | Allows managing public issue queries. |
+| `save_queries` | Allows saving custom queries. |
+| `view_messages` | Allows viewing forum messages. |
+| `add_messages` | Allows posting new forum messages. |
+| `edit_messages` | Allows editing any forum message. |
+| `edit_own_messages` | Allows editing own forum messages. |
+| `delete_messages` | Allows deleting any forum message. |
+| `delete_own_messages` | Allows deleting own forum messages. |
+| `view_message_watchers` | Allows viewing message watchers. |
+| `add_message_watchers` | Allows adding watchers to messages. |
+| `delete_message_watchers` | Allows removing message watchers. |
+| `manage_boards` | Allows managing discussion boards. |
+| `view_calendar` | Allows viewing the project calendar. |
+| `view_documents` | Allows viewing project documents. |
+| `add_documents` | Allows adding new documents. |
+| `edit_documents` | Allows editing existing documents. |
+| `delete_documents` | Allows deleting documents. |
+| `view_files` | Allows viewing project files. |
+| `manage_files` | Allows uploading and deleting files. |
+| `view_gantt` | Allows viewing the Gantt chart. |
+| `view_issues` | Allows viewing issues. |
+| `add_issues` | Allows creating new issues. |
+| `edit_issues` | Allows editing any issue. |
+| `edit_own_issues` | Allows editing own issues. |
+| `copy_issues` | Allows copying issues. |
+| `manage_issue_relations` | Allows managing issue relationships. |
+| `manage_subtasks` | Allows managing issue subtasks. |
+| `set_issues_private` | Allows marking any issue as private. |
+| `set_own_issues_private` | Allows marking own issues as private. |
+| `add_issue_notes` | Allows adding notes to issues. |
+| `edit_issue_notes` | Allows editing any issue notes. |
+| `edit_own_issue_notes` | Allows editing own issue notes. |
+| `view_private_notes` | Allows viewing private notes. |
+| `set_notes_private` | Allows marking notes as private. |
+| `delete_issues` | Allows deleting issues. |
+| `view_issue_watchers` | Allows viewing issue watchers. |
+| `add_issue_watchers` | Allows adding watchers to issues. |
+| `delete_issue_watchers` | Allows removing issue watchers. |
+| `import_issues` | Allows importing issues. |
+| `manage_categories` | Allows managing issue categories. |
+| `view_news` | Allows viewing project news. |
+| `manage_news` | Allows creating, editing, and deleting news. |
+| `comment_news` | Allows commenting on news. |
+| `view_changesets` | Allows viewing repository changesets. |
+| `browse_repository` | Allows browsing the repository. |
+| `commit_access` | Allows committing changes to the repository. |
+| `manage_related_issues` | Allows managing issues linked to commits. |
+| `manage_repository` | Allows managing repository settings. |
+| `view_time_entries` | Allows viewing time entries. |
+| `log_time` | Allows logging time spent. |
+| `edit_time_entries` | Allows editing any time entries. |
+| `edit_own_time_entries` | Allows editing own time entries. |
+| `manage_project_activities` | Allows managing project activities. |
+| `log_time_for_other_users` | Allows logging time for other users. |
+| `import_time_entries` | Allows importing time entries. |
+| `view_wiki_pages` | Allows viewing wiki pages. |
+| `view_wiki_edits` | Allows viewing wiki history. |
+| `export_wiki_pages` | Allows exporting wiki pages. |
+| `edit_wiki_pages` | Allows editing wiki pages. |
+| `rename_wiki_pages` | Allows renaming wiki pages. |
+| `delete_wiki_pages` | Allows deleting wiki pages. |
+| `delete_wiki_pages_attachments` | Allows deleting wiki attachments. |
+| `view_wiki_page_watchers` | Allows viewing wiki page watchers. |
+| `add_wiki_page_watchers` | Allows adding watchers to wiki pages. |
+| `delete_wiki_page_watchers` | Allows removing wiki page watchers. |
+| `protect_wiki_pages` | Allows protecting wiki pages from edits. |
+| `manage_wiki` | Allows full management of the wiki. |
 
 ## Service chain examples
 
