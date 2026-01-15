@@ -745,6 +745,22 @@ This objects are meant to be as simple as they look. The only values availables 
 | `protect_wiki_pages` | Allows protecting wiki pages from edits. |
 | `manage_wiki` | Allows full management of the wiki. |
 
+**NOTE:** If you want the roles to appear in ***"workflows"*** redmine page you have to add at least the following privileges:
+
+```yaml
+  - x-redmine-profile: YourProfileWithWorklowsAcces
+    permissions:
+      - add_project
+      - close_project
+      - view_issues
+      - add_issues
+      - edit_issues
+      - edit_own_issues
+      - add_issue_notes
+      - edit_issue_notes
+      - delete_issues
+```
+
 ## Service chain examples
 
 In this section we provide some examples for a better understanding and an overall view of the service chain modeling language.
