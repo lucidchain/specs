@@ -204,6 +204,7 @@ This means that the service with the name "Review ship" has 2 terminal or initia
 | default_value | `String\|Integer\|Boolean\|Float\Date` | Optional           | Default value for the custom field if not specified. Take into account that its value must be the same type as field_format. |
 | possible_values | `String` | Optional           | Possible values that will appear in the list. It must be a string with values separated by commas. For example: `"option1,option2,option3,option4"`. Note that this property is only available if field_format is **list**, and in that case this property is required |
 | multiple | `Boolean` | Optional           | This property allows users to add more than one value to the list. By default its value is **false**.  Note that this property is only available if field_format is **list** |
+| x-redmine-tickets-types | [TicketTypeEnum[]](#tickettypeenum) | Optional | List of Redmine ticket types whose issues will have this custom values. If this property is not present, LCW assumes its for all ticket types. |
 
 #### RedmineCustomFieldObject example
 
