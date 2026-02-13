@@ -10,8 +10,8 @@ authors:
     url: "https://github.com/Dangalcan"
     image_url: "https://avatars.githubusercontent.com/u/92941017"
 copyright: "© 2025 Lucid Chain Wizard by ISA Research Group. All rights reserved."
+last_commiter: dangalcan
 ---
-
 # Constraints
 
 In this section we are going to describe all validations related to SCModel in order to have a correct service chain.

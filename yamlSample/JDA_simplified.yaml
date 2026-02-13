@@ -1,0 +1,105 @@
+context:
+  id: 2
+  version: 3
+  config:
+    service-chain-type: state
+    initial:
+      - service: "Revisión"
+        states:
+          - "ESTUDIANDO"
+    terminal:
+      - service: "Despliegue"
+        states:
+          - "TERMINADO"
+    ownership-type: state
+    initial-sla: REVISAR_ENTREGA_SLA_S
+  chain-name: "Caso Juan Simplified"
+  description: Sistema de entregas de software simplified
+orgs:
+  - code: PROV_DESARROLLO_S_ORG
+    name: PROV_DESARROLLO_S
+    teams:
+      - name: PROV_DESARROLLO_S_TEAM
+        x-redmine-profile: FunctionalUser
+        members:
+          - name: Francisco_S
+            email: fran_s@us.es
+            user: FranciscoS
+            roles:
+              - name: Desarrollador
+  - code: OTP_CALIDAD_S_ORG
+    name: OTP_CALIDAD_S
+    teams:
+      - name: OTP_CALIDAD_S_TEAM
+        x-redmine-profile: FunctionalUser
+        members:
+          - name: Maria_S
+            user: mariasS
+            email: maria_s@us.es
+            roles:
+              - name: Calidad
+    services:
+      - name: Revisión
+        description: ...
+        x-redmine-state: ESTUDIANDO
+        x-redmine-tickets-types:
+          - SEM-Solicitud Entrega_S
+        teams:
+          - name: OTP_CALIDAD_S_TEAM
+        customers:
+          - name: PROV_DESARROLLO_S
+            sla: REVISAR_ENTREGA_SLA_S
+        providers:
+          - name: PROV_SISTEMAS_S
+            service: Despliegue
+            sla: DESPLIEGUE_PRUEBAS_SLA_S
+            cardinality: 1..1
+  - code: PROV_SISTEMAS_S_ORG
+    name: PROV_SISTEMAS_S
+    teams:
+      - name: PROV_SISTEMAS_S_TEAM
+        x-redmine-profile: FunctionalUser
+        members:
+          - name: Manuel_S
+            user: manuuuuS
+            email: manu_s@us.es
+            roles:
+              - name: Desarrollador
+    services:
+      - name: Despliegue
+        description: ...
+        x-redmine-state: EN CURSO
+        x-redmine-tickets-types:
+          - SEM-Solicitud Entrega_S
+        teams:
+          - name: PROV_SISTEMAS_S_TEAM
+        customers:
+          - name: OTP_CALIDAD_S
+            sla: DESPLIEGUE_PRUEBAS_SLA_S
+sla:
+  - name: REVISAR_ENTREGA_SLA_S
+    guarantees:
+    - scope: 
+          x-redmine-tickets-type: "SEM-Solicitud Entrega_S"
+      objectives:
+        tto:
+          max:
+            value: 1
+            unit: days
+        ttr:
+          max:
+            value: 1
+            unit: days
+  - name: DESPLIEGUE_PRUEBAS_SLA_S
+    guarantees:
+    - scope:
+        x-redmine-tickets-type: "SEM-Solicitud Entrega_S"
+      objectives:
+        tto:
+          max:
+            value: 1
+            unit: days
+        ttr:
+          max:
+            value: 1
+            unit: days

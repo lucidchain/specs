@@ -1,0 +1,1917 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="ISA Research Group">
+        <link rel="canonical" href="https://lucidchain.github.io/specs/Specification/">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Specification - Lucid chain wizard specification</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../css/custom.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">Lucid chain wizard specification</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./" class="nav-link active" aria-current="page">Specification</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../Constraints/" class="nav-link">Constraints</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="javascript:void(0);" class="nav-link">Theme</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href=".." class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../Constraints/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/lucidchain/specs/edit/master/docs/Specification.md" class="nav-link"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+  
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#lucid-chain-wizard-specification" class="nav-link">Lucid Chain Wizard Specification</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#revision-history" class="nav-link">Revision History</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#introduction" class="nav-link">Introduction</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#what-is-a-service-chain" class="nav-link">What is a service chain</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#specification" class="nav-link">Specification</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#type-faceted-chains" class="nav-link">Type faceted chains</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#type-state-chains" class="nav-link">Type state chains</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#yaml-structure" class="nav-link">Yaml structure</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#context" class="nav-link">Context</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#organization-objects" class="nav-link">Organization Objects</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#sla-objects" class="nav-link">SLA Objects</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#x-redmine-profiles-permissions-objects" class="nav-link">x-redmine-profiles-permissions Objects</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#service-chain-examples" class="nav-link">Service chain examples</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#references" class="nav-link">References</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="lucid-chain-wizard-specification">Lucid Chain Wizard Specification</h1>
+<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <a href="http://www.ietf.org/rfc/rfc2119.txt">RFC 2119</a>.</p>
+<h2 id="revision-history">Revision History</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Version</th>
+<th style="text-align: left;">Date</th>
+<th style="text-align: left;">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1.0</td>
+<td style="text-align: left;">2025</td>
+<td style="text-align: left;">Initial service chain modeling version.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="introduction">Introduction</h2>
+<p><strong>Lucid Chain Wizard</strong> provides a service chain modeling language that is capable of specify many service chains configurations such as its type or TTO calculus. LCW helps to
+import and export service chains from ITop and Redmine, and it can also give some detailed metrics about SLA compliance. In this page we will describe this language.</p>
+<h2 id="what-is-a-service-chain">What is a service chain</h2>
+<p>A service chain is a set of two or more organizations that are related to each other through at least one service, in which a series of agreements are involved through an SLA.
+In this SLA we can specify TTO and TTR values. Once we have this structure, we can represent it in a yaml file and use it in ITop or Redmine using Lucid Chain WIzard.</p>
+<p>Before we start introducing the yaml structure and all the possible options that it provides, we are going to describe some concepts:</p>
+<ul>
+<li>
+<p><u><strong><em>Incident/request/issue:</em></strong></u> It is a need reported by a customer. It must be handled by an organization following its repective SLA rules. For us every term such as incident, service request, user request and so on will be treated and refered as <strong><em>"issue"</em></strong>.</p>
+</li>
+<li>
+<p><u><strong><em>TTO:</em></strong></u> It means Time To Ownership. It is the time it takes for a team or individual to be <strong><em>assigned</em></strong> to an issue after it has been created or its state changed.</p>
+</li>
+<li>
+<p><u><strong><em>TTR:</em></strong></u> It means Time To Resolve. It is the time it takes for an issue to be <strong><em>closed</em></strong> since it has been assigned to someone or a team.</p>
+</li>
+</ul>
+<h2 id="specification">Specification</h2>
+<p>A <strong>service chain model</strong> description is a <a href="http://yaml.org/spec">YAML</a> document with following structure. Note that primitive data types in the service chain model specification are based on the types supported by the <a href="http://json-schema.org/latest/json-schema-core.html#anchor8">JSON-Schema Draft 4</a>.</p>
+<p><img alt="SCModel UML representation" src="../img/LCWSpec-ServiceChainModel.png" />  </p>
+<p align="center">
+  <strong>Figure 1:</strong> <em>SCModel UML Representation.</em>
+</p>
+
+<p>As you can see in Figure 1, SCModel specifications is complex. The UML has different colors to make it easier to understand each part:</p>
+<ul>
+<li><u><strong><em>Grey:</em></strong></u> This color is used to represent the whole service chain.</li>
+<li><u><strong><em>Purple:</em></strong></u> This color is used to represent all <strong><em>Enums</em></strong> in SCModel notation.</li>
+<li><u><strong><em>Blue:</em></strong></u> This color is used to represent all the parts related with SCModel <strong><em>service chain configuration</em></strong>.</li>
+<li><u><strong><em>Light orange:</em></strong></u> This color is used to represent all the parts related with <strong><em>organizations</em></strong>, including teams, services and people.</li>
+<li><u><strong><em>Pink:</em></strong></u> This color is used to represent all the parts related with <strong><em>SLAs</em></strong> and objectives.</li>
+</ul>
+<h2 id="type-faceted-chains">Type faceted chains</h2>
+<p>In service chains with type <em>faceted</em> we have a simplified incident management. In this type of service chains the customer created an issue for its provier. The issue is assigned to a team and later to a person. When this happens, TTO is calculated as the time between its creation and its asignation. Once TTO is calculated, we start to count TTR until the issue has been resolved. Although the issues have states, they are always associated with the same service. If during the issue management the provider organization has to pass the resposability to one of its providers, a new issue between them must be created. In these cases we can close or pause the original issue. This way of managing issues makes a bit difficult tracking whether the first provider or any of its providers are fullfiling the SLAs or not. However, it is simpler and easier to understand. Faceted chains usually are usefull when there are no third party services interacting with the client.</p>
+<p>We can represent faceted service chains as a directed graph, where the edges always represent a new issue creation.</p>
+<p><img alt="Type state chain representation" src="../img/facetedChainExample.png" />  </p>
+<p align="center">
+  <strong>Figure 2:</strong> <em>Graph representation of a service chain type faceted chain.</em>
+</p>
+
+<h2 id="type-state-chains">Type state chains</h2>
+<p>In type <em>state</em> service chains issue management is more complex but it is more efficent to detect who is not passing SLAs. In type state, when an issue is created, it has an state, which is related to just one service. In case this service needs to pass the responsability to another, it does it using the same issue, but changing its state. TTO is calculated as the sum of time the issue is not assigned to an user or a team. In case ownership-type is state, TTO is the sum of the times between the issue changes to a new state until is assigned to a person. In case ownership-type is state+team, it is calculated as the sum of the times between the issue is assigned to a new team until is assigned to a person.
+In type state service chains we must define initial and terminal services, because we can represent this chains as bidirectional graphs. At this point, the only way to determine where we can start or end the process is defining this flow. Here the edges means a issue changing its state. We also need to define an initial SLA, because issue creation is a special moment that just can be done once.</p>
+<p><img alt="Type state chain representation" src="../img/stateChainExample.png" /></p>
+<p align="center">
+  <strong>Figure 3:</strong> <em>Graph representation of a service chain type state chain.</em>
+</p>
+
+<h2 id="yaml-structure">Yaml structure</h2>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Field type</th>
+<th>Required/Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>context</td>
+<td><a href="#context">Context</a></td>
+<td><strong>Required</strong></td>
+<td>Service chain context and general configuration</td>
+</tr>
+<tr>
+<td>orgs</td>
+<td><a href="#organization">Organization</a></td>
+<td><strong>Required</strong></td>
+<td>List of all organizations including its services and teams</td>
+</tr>
+<tr>
+<td>sla</td>
+<td><a href="#sla">SLA</a></td>
+<td><strong>Required</strong></td>
+<td>List of all SLAs involved in the service chain and its guarantees.</td>
+</tr>
+<tr>
+<td>x-redmine-profiles-permissions</td>
+<td><a href="#redmineprofilepermissionsobject">RedmineProfilePermissionsObject</a></td>
+<td>Optional</td>
+<td>List of all privileges and properties from redmine profiles defined in the chain.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><strong>NOTE:</strong> It is not allowed to include the prefix <strong><em>"<em>DEPRECATED</em>"</em></strong> in any name or value for any property.</p>
+<h3 id="yaml-structure-example">Yaml structure example</h3>
+<pre><code class="language-yaml">context:  Context
+orgs:  Organization[]
+sla: SLA[]
+</code></pre>
+<h2 id="context">Context</h2>
+<p>This section of the yaml defines the service chain configuration. It is essential in order to understand how the chain works and some extra information.</p>
+<h3 id="context_1"><code>Context</code></h3>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Field type</th>
+<th>Required/Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><code>Number</code></td>
+<td><strong>Required</strong></td>
+<td>Unique identifier for the service chain.</td>
+</tr>
+<tr>
+<td>version</td>
+<td><code>Number</code></td>
+<td><strong>Required</strong></td>
+<td>Version number of the context.</td>
+</tr>
+<tr>
+<td>config</td>
+<td><a href="#configuration">Configuration</a></td>
+<td><strong>Required</strong></td>
+<td>Configuration details of the service chain.</td>
+</tr>
+<tr>
+<td>chain-name</td>
+<td><code>String</code></td>
+<td>Optional</td>
+<td>Name of the service chain. It is highly recommended to include that property.</td>
+</tr>
+<tr>
+<td>description</td>
+<td><code>String</code></td>
+<td>Optional</td>
+<td>Description of the service chain.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="context-example">Context example</h4>
+<pre><code class="language-yaml">  id: 1
+  version: 1
+  config: Configuration
+  chain-name: &quot;Plane pieces quality assurance service chain&quot;
+  description: &quot;This service chain contains all the services required to ensurance quality in plane pieces.&quot;
+</code></pre>
+<h3 id="configuration"><code>Configuration</code></h3>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Field type</th>
+<th>Required/Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>service-chain-type</td>
+<td><a href="#servicechaintype">ServiceChainType</a></td>
+<td><strong>Required</strong></td>
+<td>Type of service chain.</td>
+</tr>
+<tr>
+<td>initial</td>
+<td><a href="#servicestateobject">ServiceStateObject[]</a></td>
+<td>Optional</td>
+<td>List of initial services and their states. It is not optional if chain type is state.</td>
+</tr>
+<tr>
+<td>terminal</td>
+<td><a href="#servicestateobject">ServiceStateObject[]</a></td>
+<td>Optional</td>
+<td>List of terminal services and their states. It is not optional if chain type is state.</td>
+</tr>
+<tr>
+<td>x-redmine-custom-fields</td>
+<td><a href="#redminecustomfieldobject">RedmineCustomFieldObject[]</a></td>
+<td>Optional</td>
+<td>List of Redmine custom fields that will be added to your Redmine's entities.</td>
+</tr>
+<tr>
+<td>ownership-type</td>
+<td><a href="#ownershiptype">OwnershipType</a></td>
+<td>Optional</td>
+<td>Defines the ownership type. By default its value is 'state' It is not optional if chain type is state.</td>
+</tr>
+<tr>
+<td>initial-sla</td>
+<td><code>String</code></td>
+<td>Optional</td>
+<td>It is the <strong>name</strong> of the initial SLA assigned to the service chain. It will be the SLA taken into account when a new issue is created and it has not changed its state. It is not optional if chain type is state.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="configuration-type-state-example">Configuration type state example</h4>
+<pre><code class="language-yaml">  service-chain-type: &quot;state&quot; 
+  initial: ServiceStateObject[]
+  terminal: ServiceStateObject[]
+  ownership-type: &quot;state+team&quot;
+  initial-sla: &quot;REVIEW_SHIP_SLA&quot;
+  x-redmine-custom-fields: RedmineCustomFieldObject[]
+</code></pre>
+<h5 id="configuration-type-faceted-example">Configuration type faceted example</h5>
+<pre><code class="language-yaml">  service-chain-type: faceted
+</code></pre>
+<h3 id="servicechaintype"><code>ServiceChainType</code></h3>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>state</code></td>
+<td>Represents type state chains. It means that issues change its states instead of being closed/stopped when it is necessary to contact another service in order to solve them.</td>
+</tr>
+<tr>
+<td><code>faceted</code></td>
+<td>Represents type faceted chains. It means that issues closed/stopped and a new issue is created when it is necessary to contact another service in order to solve them.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="servicestateobject"><code>ServiceStateObject</code></h3>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Field type</th>
+<th>Required/Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>service</td>
+<td><code>String</code></td>
+<td><strong>Required</strong></td>
+<td>It is the <strong>name</strong> of the service. Use <code>"*"</code> when you want to include all services.</td>
+</tr>
+<tr>
+<td>states</td>
+<td><code>String[]</code></td>
+<td><strong>Required</strong></td>
+<td>List of states associated with the service. This states will be terminal or initial, and that means they have a special meaning because they start or end the flow.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="servicestateobject-example">ServiceStateObject example</h4>
+<pre><code class="language-yaml">  service: &quot;Review ship&quot;
+     states:
+       - &quot;STUDYING&quot;
+       - &quot;DRAFT&quot;
+</code></pre>
+<p>This means that the service with the name "Review ship" has 2 terminal or initial states (depending on where this ServiceStateObject is). Theese states are "STUDYING" and "DRAFT".</p>
+<h3 id="redminecustomfieldobject"><code>RedmineCustomFieldObject</code></h3>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Field type</th>
+<th>Required/Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td><code>String</code></td>
+<td><strong>Required</strong></td>
+<td>Name of the Redmine custom field.</td>
+</tr>
+<tr>
+<td>redmineType</td>
+<td><a href="#redminetype">RedmineType</a></td>
+<td><strong>Required</strong></td>
+<td>The type of the Redmine custom field.</td>
+</tr>
+<tr>
+<td>field_format</td>
+<td><a href="#redminefieldformat">RedmineFieldFormat</a></td>
+<td>Optional</td>
+<td>Defines the format of the field. By default its value is <strong><em>string</em></strong>.</td>
+</tr>
+<tr>
+<td>is_required</td>
+<td><code>Boolean</code></td>
+<td>Optional</td>
+<td>Indicates whether the field is required or not. By default its value is <strong><em>false</em></strong>.</td>
+</tr>
+<tr>
+<td>is_for_all</td>
+<td><code>Boolean</code></td>
+<td>Optional</td>
+<td>Specifies if the field applies to all new objects from the Type specified in RedmineType. By default its value is <strong><em>true</em></strong>.</td>
+</tr>
+<tr>
+<td>description</td>
+<td><code>String</code></td>
+<td>Optional</td>
+<td>Additional description of the custom field. By default its value is <strong><em>...</em></strong>.</td>
+</tr>
+<tr>
+<td>regexp</td>
+<td><code>String</code></td>
+<td>Optional</td>
+<td>Regular expression pattern to validate the field input. <strong><em>It can only have a value if  field_format is string</em></strong></td>
+</tr>
+<tr>
+<td>default_value</td>
+<td><code>String\|Integer\|Boolean\|Float\Date</code></td>
+<td>Optional</td>
+<td>Default value for the custom field if not specified. Take into account that its value must be the same type as field_format.</td>
+</tr>
+<tr>
+<td>possible_values</td>
+<td><code>String</code></td>
+<td>Optional</td>
+<td>Possible values that will appear in the list. It must be a string with values separated by commas. For example: <code>"option1,option2,option3,option4"</code>. Note that this property is only available if field_format is <strong>list</strong>, and in that case this property is required</td>
+</tr>
+<tr>
+<td>multiple</td>
+<td><code>Boolean</code></td>
+<td>Optional</td>
+<td>This property allows users to add more than one value to the list. By default its value is <strong>false</strong>.  Note that this property is only available if field_format is <strong>list</strong></td>
+</tr>
+<tr>
+<td>x-redmine-tickets-types</td>
+<td><a href="#tickettypeenum">TicketTypeEnum[]</a></td>
+<td>Optional</td>
+<td>List of Redmine ticket types whose issues will have this custom values. If this property is not present, LCW assumes its for all ticket types.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="redminecustomfieldobject-example">RedmineCustomFieldObject example</h4>
+<pre><code class="language-yaml">    name: 'Phone'
+    field_format: 'string'
+    redmineType: 'UserCustomField'
+    regexp: '(?:\+34\s?)?(6\d{8}|7\d{8}|8\d{8}|9\d{8})'
+</code></pre>
+<h3 id="redminetype"><code>RedmineType</code></h3>
+<p>This property is related to the entity in which we want to include the new custom field. Redmine only allows the following values.</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>IssueCustomField</code></td>
+<td>The custom field will be added as a property to Redmine issues.</td>
+</tr>
+<tr>
+<td><code>TimeEntryCustomField</code></td>
+<td>The custom field will be added as a property to Redmine Time entries.</td>
+</tr>
+<tr>
+<td><code>ProjectCustomField</code></td>
+<td>The custom field will be added as a property to Redmine projects.</td>
+</tr>
+<tr>
+<td><code>VersionCustomField</code></td>
+<td>The custom field will be added as a property to Redmine version objects.</td>
+</tr>
+<tr>
+<td><code>DocumentCustomField</code></td>
+<td>The custom field will be added as a property to Redmine document objects.</td>
+</tr>
+<tr>
+<td><code>UserCustomField</code></td>
+<td>The custom field will be added as a property to Redmine users.</td>
+</tr>
+<tr>
+<td><code>GroupCustomField</code></td>
+<td>The custom field will be added as a property to Redmine groups.</td>
+</tr>
+<tr>
+<td><code>TimeEntryActivityCustomField</code></td>
+<td>The custom field will be added as a property to Redmine activities.</td>
+</tr>
+<tr>
+<td><code>IssuePriorityCustomField</code></td>
+<td>The custom field will be added as a property to Redmine issue priorities.</td>
+</tr>
+<tr>
+<td><code>DocumentCategoryCustomField</code></td>
+<td>The custom field will be added as a property to Redmine document categories.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="redminefieldformat"><code>RedmineFieldFormat</code></h3>
+<p>This property specifies the type of the custom field that you want to add to your Redmine entities. In the future we may add some more but until now only the following are supported.</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>string</code></td>
+<td>The custom field which will be added as a property to Redmine objects will be type <strong><em>String</em></strong>.</td>
+</tr>
+<tr>
+<td><code>text</code></td>
+<td>The custom field which will be added as a property to Redmine objects will be large length type <strong><em>String</em></strong>.</td>
+</tr>
+<tr>
+<td><code>int</code></td>
+<td>The custom field which will be added as a property to Redmine objects will be type <strong><em>Integer</em></strong>.</td>
+</tr>
+<tr>
+<td><code>bool</code></td>
+<td>The custom field which will be added as a property to Redmine objects will be type <strong><em>Boolean</em></strong>.</td>
+</tr>
+<tr>
+<td><code>float</code></td>
+<td>The custom field which will be added as a property to Redmine objects will be type <strong><em>Float</em></strong>.</td>
+</tr>
+<tr>
+<td><code>date</code></td>
+<td>The custom field which will be added as a property to Redmine objects will be type <strong><em>Datetime</em></strong>.</td>
+</tr>
+<tr>
+<td><code>list</code></td>
+<td>The custom field which will be added as a property to Redmine objects will be type <strong><em>List<String></em></strong>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ownershiptype"><code>OwnershipType</code></h3>
+<p>This property default value is 'state'. It has really strong implications in TTO and TTR calculations,
+which implies that it is common for all issues created.</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>state</code></td>
+<td>Represents ownership-type state. It means that TTO is calculated as the sum of the times between each change of state and the moment the issue is assigned to a person. TTR is calculated as the sum of the times between each user assignation and each change of state.</td>
+</tr>
+<tr>
+<td><code>state+team</code></td>
+<td>Represents ownership-type state+team. It means that TTO is calculated as the sum of the times between each group assignation and the moment the issue is assigned to a person. TTR is calculated as the sum of the times betwwen each user asignation and each group assignation plus the time between the last group assignation and the closing date.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="organization-objects">Organization Objects</h2>
+<p>Each Organization defined in <strong>orgs</strong> section must contain the following atributes and schema.</p>
+<h3 id="organization"><code>Organization</code></h3>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Field type</th>
+<th>Required/Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code</td>
+<td><code>String</code></td>
+<td><strong>Required</strong></td>
+<td>Unique identifier for the organization.</td>
+</tr>
+<tr>
+<td>name</td>
+<td><code>String</code></td>
+<td><strong>Required</strong></td>
+<td>Name of the  organization. It must be unique.</td>
+</tr>
+<tr>
+<td>teams</td>
+<td><a href="#team">Team[]</a></td>
+<td>Optional</td>
+<td>List of all the teams of the organization involved in the chain. The organization must have teams in order to have services and be a client or a provider.</td>
+</tr>
+<tr>
+<td>services</td>
+<td><a href="#service">Service[]</a></td>
+<td>Optional</td>
+<td>List of services offered by the organization. The organization must have teams for its services. Moreover, services are required in order to be a provider.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="organization-example">Organization example</h4>
+<pre><code class="language-yaml">code: &quot;AQC&quot;
+name: &quot;Aerospace Quality Corp&quot;
+teams: Team[]
+services: Service[]
+</code></pre>
+<h3 id="team"><code>Team</code></h3>
+<p>It is necessary that we include x-redmine-profile property when importing a chain in Redmine, and x-itop-profiles when importing a chain in ITop.</p>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Field type</th>
+<th>Required/Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td><code>String</code></td>
+<td><strong>Required</strong></td>
+<td>Name of the team.</td>
+</tr>
+<tr>
+<td>x-redmine-profiles</td>
+<td><a href="#redmineprofile">RedmineProfile[]</a></td>
+<td>Optional</td>
+<td>Redmine profiles associated with the team.</td>
+</tr>
+<tr>
+<td>x-itop-profiles</td>
+<td><a href="#itopprofile">ITopProfile[]</a></td>
+<td>Optional</td>
+<td>List of all ITop profiles associated with the team.</td>
+</tr>
+<tr>
+<td>members</td>
+<td><a href="#member">Member[]</a></td>
+<td><strong>Required</strong></td>
+<td>List of all the team members.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="team-example">Team example</h4>
+<pre><code class="language-yaml">name: &quot;Inspection Team&quot;
+x-redmine-profiles: RedmineProfile[]
+x-itop-profiles: ITopProfile[]
+members: Member[]
+</code></pre>
+<h3 id="redmineprofile"><code>RedmineProfile</code></h3>
+<p>Defines the possible Redmine profiles for the users in the team. This profiles allows users to have privileges for managing issues and other acitivities inside Redmine.  </p>
+<p><strong>NOTE</strong>: This privileges are inherited to all team members.</p>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Field type</th>
+<th>Required/Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x-redmine-profile</td>
+<td><code>String</code></td>
+<td><strong>Required</strong></td>
+<td>Redmine profile name associated with the team. The privileges are specified in property <code>x-redmine-profiles-permissions</code></td>
+</tr>
+</tbody>
+</table>
+<p>If there are not any profiles defined, these are the ones used and their privileges.</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FunctionalUser</code></td>
+<td>It has all the permissions available in Redmine.</td>
+</tr>
+<tr>
+<td><code>ITUser</code></td>
+<td>Currently it does not provide any privileges. In the future it might do it.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="redmineprofile-example">RedmineProfile example</h4>
+<pre><code class="language-yaml">x-redmine-profile: &quot;Tester&quot; 
+</code></pre>
+<hr />
+<h3 id="itopprofile"><code>ITopProfile</code></h3>
+<p>This values are the currently available on ITop defaultly. You can have some additional information in the following <a href="https://www.itophub.io/wiki/page?id=3_2_0:customization:profiles">link</a>
+Here we leave the ITop official documentation chart about profiles.</p>
+<p><strong>NOTE</strong>: This privileges are inherited to all team members.</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Administrator</td>
+<td>Has the rights on everything (bypassing any control).</td>
+</tr>
+<tr>
+<td>Portal user</td>
+<td>Has the rights to access the user portal. People having this profile will not be allowed to access the standard application; they will be automatically redirected to the user portal.</td>
+</tr>
+<tr>
+<td>Configuration Manager</td>
+<td>Person in charge of the documentation of the managed CIs.</td>
+</tr>
+<tr>
+<td>Service Desk Agent</td>
+<td>Person in charge of creating incident reports.</td>
+</tr>
+<tr>
+<td>Support Agent</td>
+<td>Person analyzing and solving the current incidents.</td>
+</tr>
+<tr>
+<td>Problem Manager</td>
+<td>Person analyzing and solving the current problems.</td>
+</tr>
+<tr>
+<td>Change Implementor</td>
+<td>Person executing the changes.</td>
+</tr>
+<tr>
+<td>Change Supervisor</td>
+<td>Person responsible for the overall change execution.</td>
+</tr>
+<tr>
+<td>Change Approver</td>
+<td>Person who could be impacted by some changes.</td>
+</tr>
+<tr>
+<td>Service Manager</td>
+<td>Person responsible for the service delivered to the [internal] customer.</td>
+</tr>
+<tr>
+<td>Document author</td>
+<td>Any person who could contribute to documentation.</td>
+</tr>
+<tr>
+<td>Portal power user</td>
+<td><em>(New in 2.0.1)</em> Users having this profile will have the rights to see all the tickets for a customer in the portal. Must be used in conjunction with other profiles (e.g. Portal User).</td>
+</tr>
+<tr>
+<td>REST Services User</td>
+<td><em>(New in 2.5.0)</em> User account with access to the REST Web Services. If the configuration setting <code>secure_rest_services</code> is set to <code>true</code> (which is the default), then only the user accounts having this profile are allowed to use the REST Web services.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="itopprofile-example">ITopProfile[] example</h4>
+<pre><code class="language-yaml">  x-itop-profiles:
+      - x-itop-profile: Configuration Manager
+      - x-itop-profile: Service Desk Agent
+      - x-itop-profile: Support Agent
+      - x-itop-profile: Problem Manager
+      - x-itop-profile: Service Manager
+</code></pre>
+<h3 id="member"><code>Member</code></h3>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Field type</th>
+<th>Required/Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td><code>String</code></td>
+<td><strong>Required</strong></td>
+<td>Name of the team member. It can (and should) include surnames.</td>
+</tr>
+<tr>
+<td>user</td>
+<td><code>String</code></td>
+<td><strong>Required</strong></td>
+<td>Username of the team member. It is the login name for the person.</td>
+</tr>
+<tr>
+<td>email</td>
+<td><code>String</code></td>
+<td><strong>Required</strong></td>
+<td>Email of the team member.</td>
+</tr>
+<tr>
+<td>roles</td>
+<td><a href="#role">Role[]</a></td>
+<td>Optional</td>
+<td>List of roles assigned to the member.</td>
+</tr>
+<tr>
+<td>x-itop-default-password</td>
+<td><code>String</code></td>
+<td>Optional</td>
+<td>If the user is going to be imported on ITop and it is not going to be an externalUser, you can choose this account's password with this property. It must contains at least 8 characters, 1 number, 1 uppercase, 1 lowercase and 1 special character. If this property is not defined, by default the password will be <strong>changeMe1@</strong>.</td>
+</tr>
+<tr>
+<td>x-redmine-default-password</td>
+<td><code>String</code></td>
+<td>Optional</td>
+<td>If the user is going to be imported on Redmine You can choose this account's password with this property. It must contains at least 8 characters, 1 number, 1 uppercase, 1 lowercase and 1 special character. If this property is not defined, by default the password will be <strong>changeMe1@</strong>.</td>
+</tr>
+<tr>
+<td>x-itop-external</td>
+<td><code>Boolean</code></td>
+<td>Optional</td>
+<td>If the user is going to be imported on ITop, you can choose the account's type. If the property is <strong><em>true</em></strong>, the user will be imported as an ExternalUser. In case the property is not defined or it is false, it will be imported as LocalUser.</td>
+</tr>
+<tr>
+<td>x-itop-profiles</td>
+<td><a href="#itopprofile">ITopProfile[]</a></td>
+<td>Optional</td>
+<td>In addition to all ITop profiles associated with the team that the user inherits, you can add some private profiles to it using this property.</td>
+</tr>
+<tr>
+<td>x-redmine-profiles</td>
+<td><a href="#redmineProfile">RedmineProfile[]</a></td>
+<td>Optional</td>
+<td>In addition to all Redmine profiles associated with the team that the user inherits, you can add some private profiles to it using this property.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="member-example">Member example</h4>
+<pre><code class="language-yaml">name: &quot;John Doe&quot;
+user: &quot;jdoe&quot;
+email: &quot;jdoe@example.com&quot;
+roles: Role[]
+x-itop-default-password: &quot;SecureP@ss1!&quot;
+x-itop-external: false
+x-itop-profiles: ITopProfile[]
+</code></pre>
+<h3 id="role"><code>Role</code></h3>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Field type</th>
+<th>Required/Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td><code>String</code></td>
+<td><strong>Required</strong></td>
+<td>Role name (e.g., "Developer, Student, Manager, etc").</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="role-example">Role example</h4>
+<pre><code class="language-yaml">name: &quot;Inspector&quot;
+</code></pre>
+<h3 id="service"><code>Service</code></h3>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Field type</th>
+<th>Required/Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td><code>String</code></td>
+<td><strong>Required</strong></td>
+<td>Name of the service. It must be unique.</td>
+</tr>
+<tr>
+<td>description</td>
+<td><code>String</code></td>
+<td>Optional</td>
+<td>Description of the service.</td>
+</tr>
+<tr>
+<td>x-redmine-state</td>
+<td><code>String</code></td>
+<td>Optional</td>
+<td>Name of the state associated with the service. Remember that each service must have just only one state. It is necessary when importing a Redmine type state service chain.</td>
+</tr>
+<tr>
+<td>x-redmine-tickets-types</td>
+<td><a href="#tickettypeenum">TicketTypeEnum[]</a></td>
+<td>Optional</td>
+<td>List of Redmine ticket types applicable to the service. It is necessary when importing a Redmine type state service chain.</td>
+</tr>
+<tr>
+<td>teams</td>
+<td><a href="#teamobject">TeamObject[]</a></td>
+<td>Optional</td>
+<td>List of teams responsible for the service. This teams must belong to the organization.</td>
+</tr>
+<tr>
+<td>providers</td>
+<td><a href="#providerobject">ProviderObject[]</a></td>
+<td>Optional</td>
+<td>List of providers needed for the service.</td>
+</tr>
+<tr>
+<td>customers</td>
+<td><a href="#customerobject">CustomerObject[]</a></td>
+<td>Optional</td>
+<td>List of customers for the service.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="service-example">Service example</h4>
+<pre><code class="language-yaml">name: &quot;Quality Control&quot;
+description: &quot;Ensures all parts meet safety and performance standards.&quot;
+x-redmine-state: &quot;In Progress&quot;
+x-redmine-tickets-types: TicketTypeEnum[]
+teams: TeamObject[]
+providers: ProviderObject[]
+customers: CustomerObject[]
+</code></pre>
+<h3 id="teamobject"><code>TeamObject</code></h3>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Field type</th>
+<th>Required/Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td><code>String</code></td>
+<td><strong>Required</strong></td>
+<td>It is the <strong>name</strong> of the organization team that manages this service.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="teamobject-example">TeamObject example</h4>
+<p><strong>NOTE:</strong> Remember you have to reference an existing team. We assuming here that "Inspection Team" is defined in the organization that has this service.</p>
+<pre><code class="language-yaml">name: &quot;Inspection Team&quot;
+</code></pre>
+<h3 id="providerobject"><code>ProviderObject</code></h3>
+<p>This object represents the organization, service and SLA needed to provide a service.</p>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Field type</th>
+<th>Required/Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td><code>String</code></td>
+<td><strong>Required</strong></td>
+<td>Name of the provider organization. It is the name of the organization that is responsible of being able to provide this service. Remember that this references an  existing organization in the yaml file. It is only allowed to reference organization by it's name. Writting here the provider organization code is not valid and will be interpreted as introducing an invalid name.</td>
+</tr>
+<tr>
+<td>service</td>
+<td><code>String</code></td>
+<td><strong>Required</strong></td>
+<td>Name of the provider organization service needed to provide this service.</td>
+</tr>
+<tr>
+<td>sla</td>
+<td><code>String</code></td>
+<td><strong>Required</strong></td>
+<td>It is the <strong>name</strong> of the SLA associated with the provider and the customer of this service. Remember that this SLA is different from the SLA that has the service that needs this provider`s service.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="providerobject-example">ProviderObject example</h4>
+<pre><code class="language-yaml">name: &quot;Aerospace Quality Corp Provider&quot;
+service: &quot;Material Inspection Helper&quot;
+sla: &quot;Aerospace Quality Corp Provider SLA&quot;
+</code></pre>
+<h3 id="customerobject"><code>CustomerObject</code></h3>
+<p>This object represents the organization, and SLA that are clients from this service.</p>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Field type</th>
+<th>Required/Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td><code>String</code></td>
+<td><strong>Required</strong></td>
+<td>Name of the customer organization. It is the name of the organization that is the client from this service. Remember that this references an  existing organization in the yaml file. It is only allowed to reference organization by it's name. Writting here the customer organization code is not valid and will be interpreted as introducing an invalid name.</td>
+</tr>
+<tr>
+<td>sla</td>
+<td><code>String</code></td>
+<td><strong>Required</strong></td>
+<td>It is the <strong>name</strong> of the SLA associated with the customer and this service's organization.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="customerobject-example">CustomerObject example</h4>
+<pre><code class="language-yaml">name: &quot;Aerospace Quality Corp Client&quot;
+sla: &quot;Aerospace Quality Corp SLA&quot;
+</code></pre>
+<h3 id="tickettypeenum"><code>TicketTypeEnum</code></h3>
+<p>Defines the possible values for Redmine ticket types. This is a conceptual type, which means there are no incorrect values. Do not forget that there is only one state allowed per service.</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Your ticket type 1</code></td>
+<td>First ticket type of your service chain.</td>
+</tr>
+<tr>
+<td><code>Your ticket type 2</code></td>
+<td>Second ticket type of your service chain.</td>
+</tr>
+<tr>
+<td><code>Your ticket type 3</code></td>
+<td>Third ticket type of your service chain.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="tickettypeenum-example">TicketTypeEnum example</h4>
+<p>Imagine that you are configuring a service chain for quality assurance in plance pieces. You could define different ticket types depending on the plane. Let's see an example:</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Defense Plane</code></td>
+<td>Theese tickets must be resolved quickly.</td>
+</tr>
+<tr>
+<td><code>Comercial Plane</code></td>
+<td>Theese tickets are important but they have less priority than defense ones.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sla-objects">SLA Objects</h2>
+<h3 id="sla"><code>SLA</code></h3>
+<p>Each SLA defined in <strong>sla</strong> section must contain the following atributes and schema.</p>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Field type</th>
+<th>Required/Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td><code>String</code></td>
+<td><strong>Required</strong></td>
+<td>Name of the SLA.</td>
+</tr>
+<tr>
+<td>guarantees</td>
+<td><a href="#guaranteesobject">GuaranteesObject[]</a></td>
+<td><strong>Required</strong></td>
+<td>List of guarantees defining the scope and objectives of the SLA.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="sla-example">SLA example</h4>
+<pre><code class="language-yaml">name: &quot;Aerospace Quality Corp SLA&quot;
+guarantees: GuaranteesObject[]
+</code></pre>
+<h3 id="guaranteesobject"><code>GuaranteesObject</code></h3>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Field type</th>
+<th>Required/Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>scope</td>
+<td><a href="#scopeobject">ScopeObject</a></td>
+<td><strong>Required</strong></td>
+<td>Defines the scope of the guarantee, including the type of request depending on the tool where you want to import the chain.</td>
+</tr>
+<tr>
+<td>objectives</td>
+<td><a href="#objectivesobject">ObjectivesObject</a></td>
+<td><strong>Required</strong></td>
+<td>Specifies the objectives, including time-to-ownership (TTO) and time-to-resolution (TTR).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="guaranteesobject-example">GuaranteesObject example</h4>
+<pre><code class="language-yaml">scope: ScopeObject
+objectives: ObjectivesObject
+</code></pre>
+<h3 id="scopeobject"><code>ScopeObject</code></h3>
+<p>In scope we must define some specific tool configuration. When preparing the yaml for Redmine importation we only need to include x-redmine-tickets-type. Remember that this value must be one of the ticket types defined in the chain. When using ITop, it is needed to specify priority and request type.</p>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Field type</th>
+<th>Required/Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x-redmine-tickets-type</td>
+<td><code>String</code></td>
+<td>Optional</td>
+<td>Type of ticket in Redmine associated with the SLA guarantee.</td>
+</tr>
+<tr>
+<td>x-itop-priority</td>
+<td><a href="#itoppriority">ITopPriority</a></td>
+<td>Optional</td>
+<td>Type of priority in ITop associated with the SLA guarantee.</td>
+</tr>
+<tr>
+<td>x-itop-request-type</td>
+<td><a href="#itoprequesttype">ITopRequestType</a></td>
+<td>Optional</td>
+<td>Type of request in ITop associated with the SLA guarantee.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="scopeobject-example">ScopeObject example</h4>
+<pre><code class="language-yaml">x-redmine-tickets-type: Defense Plane
+x-itop-priority: '*'
+x-itop-request-type: 'incident' 
+</code></pre>
+<h3 id="itoppriority"><code>ITopPriority</code></h3>
+<p>Defines the possible values for ITop priority types.  </p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>1</code></td>
+<td>It represents <strong><em>critical</em></strong> priority in ITop.</td>
+</tr>
+<tr>
+<td><code>2</code></td>
+<td>It represents <strong><em>high</em></strong> priority in ITop.</td>
+</tr>
+<tr>
+<td><code>3</code></td>
+<td>It represents <strong><em>medium</em></strong> priority in ITop.</td>
+</tr>
+<tr>
+<td><code>4</code></td>
+<td>It represents <strong><em>low</em></strong> priority in ITop.</td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>It represents <strong><em>all</em></strong> priorities in ITop. It is a special value that simplifies notation.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="itoprequesttype"><code>ITopRequestType</code></h3>
+<p>Defines the possible values for ITop requests types.  </p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>incident</code></td>
+<td>It represents <strong><em>Incident</em></strong> requests in ITop.</td>
+</tr>
+<tr>
+<td><code>user_request</code></td>
+<td>It represents <strong><em>UserRequest</em></strong> requests in ITop.</td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>It represents <strong><em>both</em></strong> request types in ITop. It is a special value that simplifies notation.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="objectivesobject"><code>ObjectivesObject</code></h3>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Field type</th>
+<th>Required/Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tto</td>
+<td><a href="#timeconstraintobject">TimeConstraintObject</a></td>
+<td><strong>Required</strong></td>
+<td>Defines the maximum allowed time for time-to-ownership (TTO).</td>
+</tr>
+<tr>
+<td>ttr</td>
+<td><a href="#timeconstraintobject">TimeConstraintObject</a></td>
+<td><strong>Required</strong></td>
+<td>Defines the maximum allowed time for time-to-resolution (TTR).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="objectivesobject-example">ObjectivesObject example</h4>
+<pre><code class="language-yaml">tto: TimeConstraintObject
+ttr: TimeConstraintObject
+</code></pre>
+<h3 id="timeconstraintobject"><code>TimeConstraintObject</code></h3>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Field type</th>
+<th>Required/Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>max.value</td>
+<td><code>Integer</code></td>
+<td><strong>Required</strong></td>
+<td>Maximum time allowed for the SLA objective. Must be greater than 0.</td>
+</tr>
+<tr>
+<td>max.unit</td>
+<td><a href="#timeunitenum">TimeUnitEnum</a></td>
+<td><strong>Required</strong></td>
+<td>Unit of time measurement.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="timeconstraintobject-example">TimeConstraintObject example</h4>
+<pre><code class="language-yaml">  max:
+      value: 90
+      unit: hours
+</code></pre>
+<h3 id="timeunitenum"><code>TimeUnitEnum</code></h3>
+<p>Defines the possible values for time units.  </p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>days</code></td>
+<td>Represents days as a unit of time.</td>
+</tr>
+<tr>
+<td><code>hours</code></td>
+<td>Represents hours as a unit of time.</td>
+</tr>
+<tr>
+<td><code>minutes</code></td>
+<td>Represents minutes as a unit of time.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="x-redmine-profiles-permissions-objects"><code>x-redmine-profiles-permissions</code> Objects</h2>
+<p>This property is meant to include all data required to create redmine profiles and associate privileges to them. <strong>x-redmine-profiles-permissions</strong> section must contain the following atributes and schema.</p>
+<h3 id="x-redmine-profiles-permissions"><code>x-redmine-profiles-permissions</code></h3>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Field type</th>
+<th>Required/Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x-redmine-profiles-permissions</td>
+<td><a href="#redmineprofilepermissionsobject"><code>RedmineProfilePermissionsObject[]</code></a></td>
+<td><strong>Required</strong></td>
+<td>An array describing all properties and privileges from Redmine profiles defined in teams and users.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="redmineprofilepermissionsobject"><code>RedmineProfilePermissionsObject</code></h3>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Field type</th>
+<th>Required/Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x-redmine-profile</td>
+<td><code>String</code></td>
+<td><strong>Required</strong></td>
+<td>Unique identifier for the redmine profile.</td>
+</tr>
+<tr>
+<td>issues_visibility</td>
+<td><code>String</code></td>
+<td>Optional</td>
+<td>It determines what issues can be seen by the user with that profile. Its values can only be <code>default</code> or <code>all</code>. Its default value is <code>"default"</code></td>
+</tr>
+<tr>
+<td>users_visibility</td>
+<td><code>String</code></td>
+<td>Optional</td>
+<td>It determines what users can be seen by the user with that profile. Its values can only be <code>default</code> or <code>members_of_visible_projects</code>. Its default value is <code>"all"</code></td>
+</tr>
+<tr>
+<td>time_entries_visibility</td>
+<td><code>String</code></td>
+<td>Optional</td>
+<td>It determines what time entries can be seen by the user with that profile. Its values can only be <code>all</code> or <code>own</code>. Its default value is <code>"all"</code></td>
+</tr>
+<tr>
+<td>all_roles_managed</td>
+<td><code>Boolean</code></td>
+<td>Optional</td>
+<td>It determines it this roles can be managed by all roles or not. Its default value is <code>true</code></td>
+</tr>
+<tr>
+<td>default_time_entry_activity_id</td>
+<td><code>String</code></td>
+<td>Optional</td>
+<td>It determines the default time entry activity asociated with this profile. Its default value is <code>NULL</code> as it has no effect in LCW yet. In the future it might have any utility.</td>
+</tr>
+<tr>
+<td>permissions</td>
+<td><a href="#redmineprivilegeenum"><code>RedminePrivilegeEnum[]</code></a></td>
+<td>Optional</td>
+<td>It determines the permissions or privileges asociated with this profile. By default its value is <code>[]</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="redmineprofilepermissionsobject-example">RedmineProfilePermissionsObject example</h4>
+<pre><code class="language-yaml">x-redmine-profile: Tester
+permissions: RedminePrivilegeEnum[]
+</code></pre>
+<h4 id="redmineprofilepermissionsobject-example-with-privileges-array">RedmineProfilePermissionsObject example with privileges array</h4>
+<pre><code class="language-yaml">x-redmine-profile: Tester
+permissions:
+  - add_project
+  - close_project
+</code></pre>
+<h3 id="redmineprivilegeenum">RedminePrivilegeEnum</h3>
+<p>This objects are meant to be as simple as they look. The only values availables are the following</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>add_project</code></td>
+<td>Allows creating new projects.</td>
+</tr>
+<tr>
+<td><code>edit_project</code></td>
+<td>Allows editing project settings.</td>
+</tr>
+<tr>
+<td><code>close_project</code></td>
+<td>Allows closing or archiving a project.</td>
+</tr>
+<tr>
+<td><code>delete_project</code></td>
+<td>Allows permanently deleting a project.</td>
+</tr>
+<tr>
+<td><code>select_project_publicity</code></td>
+<td>Allows setting the project as public or private.</td>
+</tr>
+<tr>
+<td><code>select_project_modules</code></td>
+<td>Allows enabling or disabling project modules.</td>
+</tr>
+<tr>
+<td><code>manage_members</code></td>
+<td>Allows adding, editing, or removing project members.</td>
+</tr>
+<tr>
+<td><code>manage_versions</code></td>
+<td>Allows managing project versions and milestones.</td>
+</tr>
+<tr>
+<td><code>add_subprojects</code></td>
+<td>Allows creating subprojects.</td>
+</tr>
+<tr>
+<td><code>manage_public_queries</code></td>
+<td>Allows managing public issue queries.</td>
+</tr>
+<tr>
+<td><code>save_queries</code></td>
+<td>Allows saving custom queries.</td>
+</tr>
+<tr>
+<td><code>view_messages</code></td>
+<td>Allows viewing forum messages.</td>
+</tr>
+<tr>
+<td><code>add_messages</code></td>
+<td>Allows posting new forum messages.</td>
+</tr>
+<tr>
+<td><code>edit_messages</code></td>
+<td>Allows editing any forum message.</td>
+</tr>
+<tr>
+<td><code>edit_own_messages</code></td>
+<td>Allows editing own forum messages.</td>
+</tr>
+<tr>
+<td><code>delete_messages</code></td>
+<td>Allows deleting any forum message.</td>
+</tr>
+<tr>
+<td><code>delete_own_messages</code></td>
+<td>Allows deleting own forum messages.</td>
+</tr>
+<tr>
+<td><code>view_message_watchers</code></td>
+<td>Allows viewing message watchers.</td>
+</tr>
+<tr>
+<td><code>add_message_watchers</code></td>
+<td>Allows adding watchers to messages.</td>
+</tr>
+<tr>
+<td><code>delete_message_watchers</code></td>
+<td>Allows removing message watchers.</td>
+</tr>
+<tr>
+<td><code>manage_boards</code></td>
+<td>Allows managing discussion boards.</td>
+</tr>
+<tr>
+<td><code>view_calendar</code></td>
+<td>Allows viewing the project calendar.</td>
+</tr>
+<tr>
+<td><code>view_documents</code></td>
+<td>Allows viewing project documents.</td>
+</tr>
+<tr>
+<td><code>add_documents</code></td>
+<td>Allows adding new documents.</td>
+</tr>
+<tr>
+<td><code>edit_documents</code></td>
+<td>Allows editing existing documents.</td>
+</tr>
+<tr>
+<td><code>delete_documents</code></td>
+<td>Allows deleting documents.</td>
+</tr>
+<tr>
+<td><code>view_files</code></td>
+<td>Allows viewing project files.</td>
+</tr>
+<tr>
+<td><code>manage_files</code></td>
+<td>Allows uploading and deleting files.</td>
+</tr>
+<tr>
+<td><code>view_gantt</code></td>
+<td>Allows viewing the Gantt chart.</td>
+</tr>
+<tr>
+<td><code>view_issues</code></td>
+<td>Allows viewing issues.</td>
+</tr>
+<tr>
+<td><code>add_issues</code></td>
+<td>Allows creating new issues.</td>
+</tr>
+<tr>
+<td><code>edit_issues</code></td>
+<td>Allows editing any issue.</td>
+</tr>
+<tr>
+<td><code>edit_own_issues</code></td>
+<td>Allows editing own issues.</td>
+</tr>
+<tr>
+<td><code>copy_issues</code></td>
+<td>Allows copying issues.</td>
+</tr>
+<tr>
+<td><code>manage_issue_relations</code></td>
+<td>Allows managing issue relationships.</td>
+</tr>
+<tr>
+<td><code>manage_subtasks</code></td>
+<td>Allows managing issue subtasks.</td>
+</tr>
+<tr>
+<td><code>set_issues_private</code></td>
+<td>Allows marking any issue as private.</td>
+</tr>
+<tr>
+<td><code>set_own_issues_private</code></td>
+<td>Allows marking own issues as private.</td>
+</tr>
+<tr>
+<td><code>add_issue_notes</code></td>
+<td>Allows adding notes to issues.</td>
+</tr>
+<tr>
+<td><code>edit_issue_notes</code></td>
+<td>Allows editing any issue notes.</td>
+</tr>
+<tr>
+<td><code>edit_own_issue_notes</code></td>
+<td>Allows editing own issue notes.</td>
+</tr>
+<tr>
+<td><code>view_private_notes</code></td>
+<td>Allows viewing private notes.</td>
+</tr>
+<tr>
+<td><code>set_notes_private</code></td>
+<td>Allows marking notes as private.</td>
+</tr>
+<tr>
+<td><code>delete_issues</code></td>
+<td>Allows deleting issues.</td>
+</tr>
+<tr>
+<td><code>view_issue_watchers</code></td>
+<td>Allows viewing issue watchers.</td>
+</tr>
+<tr>
+<td><code>add_issue_watchers</code></td>
+<td>Allows adding watchers to issues.</td>
+</tr>
+<tr>
+<td><code>delete_issue_watchers</code></td>
+<td>Allows removing issue watchers.</td>
+</tr>
+<tr>
+<td><code>import_issues</code></td>
+<td>Allows importing issues.</td>
+</tr>
+<tr>
+<td><code>manage_categories</code></td>
+<td>Allows managing issue categories.</td>
+</tr>
+<tr>
+<td><code>view_news</code></td>
+<td>Allows viewing project news.</td>
+</tr>
+<tr>
+<td><code>manage_news</code></td>
+<td>Allows creating, editing, and deleting news.</td>
+</tr>
+<tr>
+<td><code>comment_news</code></td>
+<td>Allows commenting on news.</td>
+</tr>
+<tr>
+<td><code>view_changesets</code></td>
+<td>Allows viewing repository changesets.</td>
+</tr>
+<tr>
+<td><code>browse_repository</code></td>
+<td>Allows browsing the repository.</td>
+</tr>
+<tr>
+<td><code>commit_access</code></td>
+<td>Allows committing changes to the repository.</td>
+</tr>
+<tr>
+<td><code>manage_related_issues</code></td>
+<td>Allows managing issues linked to commits.</td>
+</tr>
+<tr>
+<td><code>manage_repository</code></td>
+<td>Allows managing repository settings.</td>
+</tr>
+<tr>
+<td><code>view_time_entries</code></td>
+<td>Allows viewing time entries.</td>
+</tr>
+<tr>
+<td><code>log_time</code></td>
+<td>Allows logging time spent.</td>
+</tr>
+<tr>
+<td><code>edit_time_entries</code></td>
+<td>Allows editing any time entries.</td>
+</tr>
+<tr>
+<td><code>edit_own_time_entries</code></td>
+<td>Allows editing own time entries.</td>
+</tr>
+<tr>
+<td><code>manage_project_activities</code></td>
+<td>Allows managing project activities.</td>
+</tr>
+<tr>
+<td><code>log_time_for_other_users</code></td>
+<td>Allows logging time for other users.</td>
+</tr>
+<tr>
+<td><code>import_time_entries</code></td>
+<td>Allows importing time entries.</td>
+</tr>
+<tr>
+<td><code>view_wiki_pages</code></td>
+<td>Allows viewing wiki pages.</td>
+</tr>
+<tr>
+<td><code>view_wiki_edits</code></td>
+<td>Allows viewing wiki history.</td>
+</tr>
+<tr>
+<td><code>export_wiki_pages</code></td>
+<td>Allows exporting wiki pages.</td>
+</tr>
+<tr>
+<td><code>edit_wiki_pages</code></td>
+<td>Allows editing wiki pages.</td>
+</tr>
+<tr>
+<td><code>rename_wiki_pages</code></td>
+<td>Allows renaming wiki pages.</td>
+</tr>
+<tr>
+<td><code>delete_wiki_pages</code></td>
+<td>Allows deleting wiki pages.</td>
+</tr>
+<tr>
+<td><code>delete_wiki_pages_attachments</code></td>
+<td>Allows deleting wiki attachments.</td>
+</tr>
+<tr>
+<td><code>view_wiki_page_watchers</code></td>
+<td>Allows viewing wiki page watchers.</td>
+</tr>
+<tr>
+<td><code>add_wiki_page_watchers</code></td>
+<td>Allows adding watchers to wiki pages.</td>
+</tr>
+<tr>
+<td><code>delete_wiki_page_watchers</code></td>
+<td>Allows removing wiki page watchers.</td>
+</tr>
+<tr>
+<td><code>protect_wiki_pages</code></td>
+<td>Allows protecting wiki pages from edits.</td>
+</tr>
+<tr>
+<td><code>manage_wiki</code></td>
+<td>Allows full management of the wiki.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>NOTE:</strong> If you want the roles to appear in <strong><em>"workflows"</em></strong> redmine page you have to add at least the following privileges:</p>
+<pre><code class="language-yaml">  - x-redmine-profile: YourProfileWithWorklowsAcces
+    permissions:
+      - add_project
+      - close_project
+      - view_issues
+      - add_issues
+      - edit_issues
+      - edit_own_issues
+      - add_issue_notes
+      - edit_issue_notes
+      - delete_issues
+</code></pre>
+<h2 id="service-chain-examples">Service chain examples</h2>
+<p>In this section we provide some examples for a better understanding and an overall view of the service chain modeling language.</p>
+<h3 id="type-faceted">Type faceted</h3>
+<ul>
+<li>
+<p>A simplified and synthetic example based on <strong><em>University</em></strong>, in <a href="../yamlSample/professorsStudents.yaml">YAML</a> format, compliant with the current Service chain specification version.</p>
+</li>
+<li>
+<p>A simplified and synthetic example based on <strong><em>University</em></strong> including third party services, in <a href="../yamlSample/professorsStudentsModded.yaml">YAML</a> format, compliant with the current Service chain specification version.</p>
+</li>
+<li>
+<p>An example based on <strong><em>Junta de Andalucía digital agency</em></strong> including two versions. The <a href="../yamlSample/TabulaService.yaml">first one</a> is a simpler version than the <a href="../yamlSample/TabulaServiceModded.yaml">second one</a>. Both are compliant with the current Service chain specification version.</p>
+</li>
+</ul>
+<h3 id="type-state">Type state</h3>
+<ul>
+<li>
+<p>A simplified and synthetic example based on <strong><em>Junta de Andalucía</em></strong>, in <a href="../yamlSample/JDA_simplified.yaml">YAML</a> format, compliant with the current Service chain specification version.</p>
+</li>
+<li>
+<p>Two more versions of the same chain in order to explore versioning and differences in a simplified version of <strong><em>Junta de Andalucía</em></strong>. The <a href="../yamlSample/JDA_simplifiedModded3.yaml">first one</a> adds a new service and the <a href="../yamlSample/JDA_simplifiedModded4.yaml">second one</a> adds SLA multiplexion.</p>
+</li>
+<li>
+<p>A complex example based on <strong><em>Junta de Andalucía</em></strong>, in <a href="../yamlSample/JDA_multiplexed_restructured.yaml">YAML</a> format, compliant with the current Service chain specification version.</p>
+</li>
+</ul>
+<h2 id="references">References</h2>
+<ol>
+<li><a href="http://www.json.org">JSON</a></li>
+<li><a href="http://yaml.org/spec">YAML</a></li>
+</ol></div>
+
+  
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+  <footer>
+    <div class="custom-footer">
+      <p>Last updated on <strong><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 13, 2026 16:04:13 UTC">February 13, 2026</span> </strong> by <strong> dangalcan</strong></p>
+    </div>
+    <div>
+    
+            <hr>
+                <p>by ISA Research Group</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+  
+        </footer>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../js/themeListener.js"></script>
+        <script src="../js/scroll-to-top.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

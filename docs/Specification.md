@@ -16,8 +16,8 @@ authors:
     url: "https://github.com/Dangalcan"
     image_url: "https://avatars.githubusercontent.com/u/92941017"
 copyright: "© 2025 Lucid Chain Wizard by ISA Research Group. All rights reserved."
+last_commiter: dangalcan
 ---
-
 # Lucid Chain Wizard Specification
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC 2119](http://www.ietf.org/rfc/rfc2119.txt).
