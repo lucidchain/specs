@@ -239,6 +239,7 @@ This property specifies the type of the custom field that you want to add to you
 | Value  | Description  |  
 |-------- |------------- |  
 | `string`   | The custom field which will be added as a property to Redmine objects will be type ***String***. |  
+| `text`   | The custom field which will be added as a property to Redmine objects will be large length type ***String***. |  
 | `int`  | The custom field which will be added as a property to Redmine objects will be type ***Integer***. |
 | `bool`  | The custom field which will be added as a property to Redmine objects will be type ***Boolean***. |
 | `float`  | The custom field which will be added as a property to Redmine objects will be type ***Float***. |
